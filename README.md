@@ -51,7 +51,7 @@ README.md
 ### 1. Clone the repository
 
 ```
-git clone https://github.com/yourusername/petwise.git
+git clone https://github.com/ud2330/PetWise-Management-Systems.git
 cd petwise
 ```
 
