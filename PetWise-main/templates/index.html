@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetWise | Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .signup-container {
+            display: flex;
+            width: 90%;
+            max-width: 1000px;
+            background: #fff;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        
+        .signup-image {
+            flex: 1;
+            background-image: url("{{ url_for('static', filename='images/Privacy policy-rafiki.svg') }}");
+            background-size: 550px;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 0.3s ease;
+        }
+
+        .signup-form {
+            flex: 1;
+            padding: 40px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .signup-form h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #4a4a4a;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .signup-form label {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .signup-form input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .signup-form input:focus {
+            border-color: #b48eff;
+            outline: none;
+        }
+
+        .signup-form .forgot-password {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .signup-form .forgot-password a {
+            color: #666;
+            text-decoration: underline;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .signup-form .forgot-password a:hover {
+            color: #b48eff;
+        }
+
+        .signup-form button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #c79bff, #b48eff);
+            border: none;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .signup-form button:hover {
+            background: linear-gradient(135deg, #b48eff, #a17bff);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .signup-container {
+                flex-direction: column;
+                width: 90%;
+            }
+
+            .signup-image {
+                height: 250px;
+            }
+
+            .signup-form {
+                padding: 30px 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .signup-form h2 {
+                font-size: 28px;
+            }
+
+            .signup-form input {
+                font-size: 14px;
+            }
+
+            .signup-form button {
+                font-size: 14px;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .login-redirect {
+        margin-top: 15px;
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .login-redirect a {
+        color: #b48eff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .login-redirect a:hover {
+        color: #a17bff;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="signup-container">
+        <!-- Image section -->
+        <div class="signup-image"></div>
+
+        <!-- Form section -->
+        <div class="signup-form">
+            <h2>Create Your Account</h2>
+            <form action="{{ url_for('details_forum') }}" method="post">
+
+                <!-- Email Field -->
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <!-- Password Field -->
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a password" required>
+
+                <!-- Full Name Field -->
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required>
+
+                <!-- Phone Number Field -->
+                <label for="phone_number">Phone Number</label>
+                <input type="text" id="phone_number" name="phone_number" placeholder="Enter your phone number" required>
+
+                <!-- Sign-up Button -->
+                <button type="submit">Sign Up</button>
+            </form>
+            <div class="login-redirect">
+                <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a>.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

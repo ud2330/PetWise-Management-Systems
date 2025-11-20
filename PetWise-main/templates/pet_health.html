@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Services</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .container {
+        background-color: rgba(255, 255, 255, 0.815);
+        max-width: 700px;
+        margin: 50px auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+        color: #4a4a4a;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+    
+    #map {
+        height: 400px;
+        margin-top: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    
+    label, input, button {
+        display: block;
+        width: 100%;
+        font-size: 16px;
+    }
+    
+    input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+    
+    button {
+        padding: 10px;
+        background-color: #b48eff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    
+    button:hover {
+        background-color: #a374ff;
+    }
+</style>    
+</head>
+<body>
+
+<div class="container">
+    <h1>Veterinary Services Near You</h1>
+    
+    <div class="form-group">
+        <label for="new-address">Enter Address or Location:</label>
+        <input type="text" id="new-address" placeholder="Enter a location" />
+    </div>
+    <button id="find-vets">Find Service</button>
+    <button id="current-location">Use Current Location</button>
+    
+    <!-- Map Display -->
+    <div id="map"></div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    const TOMTOM_API_KEY = 'ZrFJwB05aaHuZYMeI86GeC09aSXZgDh7';
+
+    const defaultLocation = [40.7128, -74.0060];
+    const map = L.map('map').setView(defaultLocation, 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    async function fetchVetsUsingAPIs(coords) {
+        const [lat, lng] = coords;
+
+        // TomTom Nearby Search URL
+        const nearbySearchURL = `https://api.tomtom.com/search/2/nearbySearch/.json?lat=${lat}&lon=${lng}&categorySet=7326&key=${TOMTOM_API_KEY}`;
+
+        // TomTom POI Search URL
+        const poiSearchURL = `https://api.tomtom.com/search/2/poiSearch/veterinary clinic.json?lat=${lat}&lon=${lng}&radius=10000&key=${TOMTOM_API_KEY}`;
+
+        try {
+            const [nearbyResponse, poiResponse] = await Promise.all([
+                fetch(nearbySearchURL).then(res => res.json()),
+                fetch(poiSearchURL).then(res => res.json())
+            ]);
+
+            const clinics = new Map(); // Using a Map to avoid duplicates
+
+            // Combine results from Nearby Search and POI Search
+            [nearbyResponse.results, poiResponse.results].forEach(results => {
+                results.forEach(clinic => {
+                    const { position, poi } = clinic;
+                    const id = clinic.id || `${position.lat},${position.lon}`;
+                    if (!clinics.has(id)) {
+                        clinics.set(id, { position, poi });
+                    }
+                });
+            });
+
+            // Display clinics on the map
+            if (clinics.size > 0) {
+                clinics.forEach(({ position, poi }) => {
+                    const { lat, lon } = position;
+                    const name = poi.name || "Veterinary Clinic";
+                    L.marker([lat, lon]).addTo(map)
+                        .bindPopup(`<b>${name}</b>`);
+                });
+            } else {
+                alert("No nearby veterinary clinics found.");
+            }
+        } catch (error) {
+            console.error("Error fetching data from TomTom API:", error);
+        }
+    }
+
+    document.getElementById('find-vets').addEventListener('click', () => {
+        const address = document.getElementById('new-address').value;
+        if (address) {
+            geocodeAddress(address);
+        } else {
+            alert("Please enter a location.");
+        }
+    });
+
+    async function geocodeAddress(address) {
+        const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(address)}&key=fcc815bf2f704ad6bb8ec8adc80d28f3`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.results.length > 0) {
+                const { lat, lng } = data.results[0].geometry;
+                map.setView([lat, lng], 13);
+                L.marker([lat, lng]).addTo(map).bindPopup(`<b>${address}</b>`).openPopup();
+                fetchVetsUsingAPIs([lat, lng]);
+            } else {
+                alert("No results found for the entered address.");
+            }
+        } catch (error) {
+            console.error("Error fetching geocode data:", error);
+        }
+    }
+
+    document.getElementById('current-location').addEventListener('click', () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const { latitude, longitude } = position.coords;
+                console.log("Current Location: ", latitude, longitude);  // Log to check the coordinates
+
+                map.setView([latitude, longitude], 13);
+                L.marker([latitude, longitude]).addTo(map).bindPopup(`<b>You are here</b>`).openPopup();
+                fetchVetsUsingAPIs([latitude, longitude]);
+            },
+            error => {
+                console.error(error); // Log the error for more insights
+                alert("Unable to retrieve your location.");
+            },
+            {
+                enableHighAccuracy: true,  // Request high accuracy location
+                timeout: 10000,            // Timeout after 10 seconds if location is not found
+                maximumAge: 0             // Force the browser to fetch fresh data
+            }
+        );
+    } else {
+        alert("Geolocation is not supported by your browser.");
+    }
+});
+
+</script>
+</body>
+</html>

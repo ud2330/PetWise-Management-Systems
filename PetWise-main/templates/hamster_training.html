@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamster Training Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #4a4a4a;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+            padding: 0 15px 20px;
+        }
+
+        .breed-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px 0;
+            border-radius: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            width: 50%;
+            margin: 15px;
+            border: 1px solid #b48eff;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        .training-steps {
+            margin-top: 30px;
+        }
+
+        .training-steps ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .training-steps li {
+            background: #d7bfff;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-section {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 315px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Hamster Training Guide</h1>
+
+    <div class="breed-selector">
+        <select id="breed-selector" onchange="updateBreedInfo()">
+            <option value="">Select a Hamster Breed</option>
+            <option value="Chinese Hamster">Chinese Hamster</option>
+            <option value="Dwarf Campbell's Hamster">Dwarf Campbell's Hamster</option>
+            <option value="Roborovski Hamster">Roborovski Hamster</option>
+            <option value="Syrian Hamster (Golden Hamster)">Syrian Hamster (Golden Hamster)</option>
+            <option value="Winter White Dwarf Hamster">Winter White Dwarf Hamster</option>
+        </select>
+    </div>
+
+    <div id="description-section" class="training-steps" style="display: none;">
+        <h3>Training Steps</h3>
+        <ul id="training-steps-list"></ul>
+    </div>
+
+    <div id="video-section" class="video-section" style="display: none;">
+        <h3>Reference Video</h3>
+        <iframe id="video-embed" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    const hamsterBreeds = {
+        "Chinese Hamster": {
+            description: [
+                "Step 1: Create a Comfortable Environment - Set up a spacious and secure cage with bedding.",
+                "Step 2: Establish a Routine - Feed your hamster at the same time every day.",
+                "Step 3: Use Positive Reinforcement - Offer treats to reward good behavior during training.",
+                "Step 4: Introduce Simple Commands - Teach basic commands like 'come' with food lures.",
+                "Step 5: Provide Mental Stimulation - Use toys and tunnels to keep your hamster active.",
+                "Step 6: Socialize Gently - Handle your hamster regularly to build trust.",
+                "Step 7: Keep Sessions Short - Limit training to 5-10 minutes.",
+                "Step 8: Be Consistent - Use the same words and gestures during training.",
+                "Step 9: Observe Behavior - Adjust your training method based on your hamster’s reactions.",
+                "Step 10: Be Patient - Training takes time, so be patient with your hamster."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/qS-bXWa9gAU",
+                description: "Chinese Hamster training video."
+            }
+        },
+        "Dwarf Campbell's Hamster": {
+            description: [
+                "Step 1: Set Up a Cozy Habitat - Ensure your Dwarf Campbell's Hamster has a safe and comfy home.",
+                "Step 2: Follow a Feeding Schedule - Feed your hamster at regular intervals.",
+                "Step 3: Use Treats as Rewards - Reward good behavior with small treats.",
+                "Step 4: Introduce Basic Commands - Start with easy commands like 'sit'.",
+                "Step 5: Encourage Playtime - Provide wheels and toys for exercise.",
+                "Step 6: Handle with Care - Gently hold your hamster to build trust.",
+                "Step 7: Short Training Sessions - Keep training short to avoid stress.",
+                "Step 8: Be Consistent - Always use the same commands.",
+                "Step 9: Monitor Progress - Adjust your approach based on the hamster's behavior.",
+                "Step 10: Stay Patient - Every hamster learns at its own pace."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/HNN02RlTWtc",
+                description: "Dwarf Campbell's Hamster training video."
+            }
+        },
+        "Roborovski Hamster": {
+            description: [
+                "Step 1: Prepare a Spacious Cage - Set up a large cage with plenty of bedding.",
+                "Step 2: Regular Feeding Schedule - Feed at the same time daily.",
+                "Step 3: Positive Reinforcement - Reward good behavior with treats.",
+                "Step 4: Teach Basic Commands - Start with simple commands like 'come'.",
+                "Step 5: Provide Interactive Toys - Use tunnels and wheels for activity.",
+                "Step 6: Socialize Gradually - Handle your hamster carefully and frequently.",
+                "Step 7: Short and Sweet - Keep sessions brief to avoid stress.",
+                "Step 8: Use Consistent Commands - Be clear and consistent with commands.",
+                "Step 9: Observe and Adapt - Adjust your training based on behavior.",
+                "Step 10: Patience is Key - Training requires time and patience."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/mBWMqjHawd8",
+                description: "Roborovski Hamster training video."
+            }
+        },
+        "Syrian Hamster (Golden Hamster)": {
+            description: [
+                "Step 1: Create a Comfortable Living Space - Provide a spacious cage with bedding.",
+                "Step 2: Stick to a Feeding Routine - Feed your hamster at the same time daily.",
+                "Step 3: Use Treats as Incentives - Reward good behavior with treats.",
+                "Step 4: Start with Simple Commands - Introduce basic commands like 'stay'.",
+                "Step 5: Provide Toys for Stimulation - Offer toys for mental and physical stimulation.",
+                "Step 6: Handle with Care - Regular handling builds trust with your hamster.",
+                "Step 7: Keep Training Sessions Short - Limit training to 5-10 minutes.",
+                "Step 8: Be Consistent - Always use the same commands for clarity.",
+                "Step 9: Monitor Behavior - Adapt training techniques as needed.",
+                "Step 10: Be Patient - Syrian hamsters need time to learn."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/hvKYDN-x3Ls",
+                description: "Syrian Hamster training video."
+            }
+        },
+        "Winter White Dwarf Hamster": {
+            description: [
+                "Step 1: Provide a Comfortable Environment - Set up a cozy, secure cage.",
+                "Step 2: Establish a Feeding Routine - Feed your hamster at the same time daily.",
+                "Step 3: Use Rewards for Training - Offer treats to encourage learning.",
+                "Step 4: Start with Simple Commands - Teach easy commands like 'come'.",
+                "Step 5: Offer Toys for Stimulation - Provide toys to keep your hamster engaged.",
+                "Step 6: Handle Gently and Regularly - Handle your hamster frequently to build trust.",
+                "Step 7: Keep Sessions Short - Train for 5-10 minutes at a time.",
+                "Step 8: Be Consistent - Use the same commands and signals.",
+                "Step 9: Watch for Behavioral Cues - Adjust your training methods based on reactions.",
+                "Step 10: Practice Patience - Training a hamster takes time and consistency."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/mxl6R69KZyI",
+                description: "Winter White Dwarf Hamster training video."
+            }
+        }
+    };
+
+    function updateBreedInfo() {
+        const breed = document.getElementById('breed-selector').value;
+        const descriptionSection = document.getElementById('description-section');
+        const trainingStepsList = document.getElementById('training-steps-list');
+        const videoSection = document.getElementById('video-section');
+        const videoEmbed = document.getElementById('video-embed');
+
+        if (breed && hamsterBreeds[breed]) {
+            const breedInfo = hamsterBreeds[breed];
+
+            trainingStepsList.innerHTML = '';
+            breedInfo.description.forEach(step => {
+                const listItem = document.createElement('li');
+                listItem.textContent = step;
+                trainingStepsList.appendChild(listItem);
+            });
+
+            videoEmbed.src = breedInfo.video.src;
+            descriptionSection.style.display = 'block';
+            videoSection.style.display = 'block';
+        } else {
+            descriptionSection.style.display = 'none';
+            videoSection.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>

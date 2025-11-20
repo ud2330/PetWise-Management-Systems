@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Breeds Info</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+    
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+    
+        h1 {
+            font-size: 30px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+    
+        select, button {
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            outline: none;
+        }
+    
+        button {
+            background: linear-gradient(135deg, #c79bff, #b48eff);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+    
+        button:hover {
+            background: linear-gradient(135deg, #ae7fff, #a173ff);
+        }
+    
+        .breed-info {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .breed-details {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+    
+        .breed-details img {
+            margin-top: 15px;
+            border-radius: 15px;
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Styling for each line in the breed details */
+        .info-item {
+            background-color: #f9f9f9; /* Light background for each item */
+            padding: 15px;
+            border: 1px solid #dedede; /* Subtle border */
+            border-radius: 8px; /* Rounded corners */
+            margin-bottom: 10px; /* Spacing between items */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+    
+        .info-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    
+        /* Bold styling for titles in each line */
+        .info-title {
+            font-weight: 600;
+            color: #333;
+        }
+    
+        /* Italic style for value text */
+        .info-item span {
+            color: #777;
+            margin-left: 10px; /* Spacing between title and value */
+        }
+    
+        /* Gradient background for breed details */
+        .breed-details {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+        }
+    
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Select a Dog Breed to Know about it</h1>
+    
+    <form id="breedForm">
+        <label for="breed">Choose Breed:</label>
+        <select id="breed" name="breed">
+            <option value="">Select a Dog Breed</option>
+            <option value="Basset Hound">Basset Hound</option>
+            <option value="Beagle">Beagle</option>
+            <option value="Boxer">Boxer</option>
+            <option value="Boston Terrier">Boston Terrier</option>
+            <option value="Bulldog">Bulldog</option>
+            <option value="Cocker Spaniel">Cocker Spaniel</option>
+            <option value="Doberman Pinscher">Doberman Pinscher</option>
+            <option value="French Bulldog">French Bulldog</option>
+            <option value="German Shepherd">German Shepherd</option>
+            <option value="Great Dane">Great Dane</option>
+            <option value="Golden Retriever">Golden Retriever</option>
+            <option value="Labrador Retriever">Labrador Retriever</option>
+            <option value="Pomeranian">Pomeranian</option>
+            <option value="Poodle">Poodle</option>
+            <option value="Pug">Pug</option>
+            <option value="Rottweiler">Rottweiler</option>
+            <option value="Shetland Sheepdog">Shetland Sheepdog</option>
+            <option value="Shih Tzu">Shih Tzu</option>
+            <option value="Siberian Husky">Siberian Husky</option>
+        </select>
+        
+        <button type="button" onclick="DogInfo()">Show Results</button>
+    </form>
+
+    <!-- Breed information and products will be listed here -->
+    <div class="breed-info" id="breedInfo"></div>
+    <div class="products-list" id="productsList"></div>
+    
+</div>
+
+<script>
+async function DogInfo() {
+    const breed = document.getElementById('breed').value;
+    const breedInfoDiv = document.getElementById('breedInfo');
+
+    // Clear previous content
+    breedInfoDiv.innerHTML = '';
+
+    // Dog API URL
+    const apiUrl =` https://api.thedogapi.com/v1/breeds/search?q=${breed}`;
+    const apiKey = 'live_ZSyzWxv3yAg3f4MSoGxmozJaqp4pKpkbzw0vKBrFLcZcp9sNCyCHOArZSyqjInhp';  // Replace 'YOUR_API_KEY' with your actual API key
+
+    try {
+        const response = await fetch(apiUrl, {
+            headers: {
+                'x-api-key': apiKey
+            }
+        });
+
+        const breedData = await response.json();
+
+        if (breedData.length > 0) {
+            // Extract breed information
+            const breedDetails = breedData[0];
+            const imageUrl = breedDetails.image ? breedDetails.image.url : '';
+
+            breedInfoDiv.innerHTML = `
+                <div class="breed-details">
+                    ${imageUrl ? `<img src="${imageUrl}" alt="${breedDetails.name}" style="max-width: 300px; height: auto; border-radius: 10px;"><br> `: ''}
+                <div class="info-item">
+                    <strong class="info-title">Name:</strong> <span>${breedDetails.name}</span>
+                </div>
+                <div class="info-item">
+                    <strong class="info-title">Bred for:</strong> <span>${breedDetails.bred_for || 'Not available'}</span>
+                </div>
+                <div class="info-item">
+                    <strong class="info-title">Breed Group:</strong> <span>${breedDetails.breed_group || 'Not available'}</span>
+                </div>
+                <div class="info-item">
+                    <strong class="info-title">Temperament:</strong> <span>${breedDetails.temperament}</span>
+                </div>
+                <div class="info-item">
+                    <strong class="info-title">Life Span:</strong> <span>${breedDetails.life_span}</span>
+                </div>
+                <div class="info-item">
+                    <strong class="info-title">Weight:</strong> <span>${breedDetails.weight.imperial} lbs (${breedDetails.weight.metric} kg)</span>
+                </div>
+                <div class="info-item">
+                    <strong class="info-title">Height:</strong> <span>${breedDetails.height.imperial} inches (${breedDetails.height.metric} cm)</span>
+                </div>
+                </div>
+            `;
+        } else {
+            breedInfoDiv.innerHTML = `<div class="breed-details">No information available for this breed.</div>`;
+        }
+    } catch (error) {
+        console.error("Error fetching breed info:", error);
+        breedInfoDiv.innerHTML = `<div class="breed-details">Failed to fetch breed information. Please try again later.</div>`;
+    }
+}
+</script>
+
+</body>
+</html>

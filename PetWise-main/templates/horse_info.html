@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horse Breeds Info</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+    
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+    
+        h1 {
+            font-size: 30px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+    
+        select, button {
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            outline: none;
+        }
+    
+        button {
+            background: linear-gradient(135deg, #c79bff, #b48eff);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+    
+        button:hover {
+            background: linear-gradient(135deg, #ae7fff, #a173ff);
+        }
+    
+        .breed-info {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .breed-details {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+    
+        .breed-details img {
+            margin-top: 15px;
+            border-radius: 15px;
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+    
+        .info-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #dedede;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+    
+        .info-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    
+        .info-title {
+            font-weight: 600;
+            color: #333;
+        }
+    
+        .info-item span {
+            color: #777;
+            margin-left: 10px;
+        }
+    
+        .breed-details {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+        }
+    
+    </style>
+</head>
+<body>
+    
+<div class="container">
+    <h1>Select a Horse Breed to Know about it</h1>
+        
+    <form id="breedForm">
+        <label for="breed">Choose Breed:</label>
+        <select id="breed" name="breed">
+            <option value=" ">Select a Horse Breed</option>
+            <option value="Horse">Horse</option>
+        </select>
+        
+        <button type="button" onclick="HorseInfo()">Show Results</button>
+    </form>
+
+    <!-- Breed information will be listed here -->
+    <div class="breed-info" id="breedInfo"></div>
+    
+</div>
+
+<script>
+async function HorseInfo() {
+    const breed = document.getElementById('breed').value;
+    const breedInfoDiv = document.getElementById('breedInfo');
+
+    // Clear previous content
+    breedInfoDiv.innerHTML = '';
+
+    // Cat API URL
+    const apiUrl = `https://api.api-ninjas.com/v1/animals?name=${breed}`;
+    const apiKey = 'gtpw8VQ4Cq1hxkr2ZWckoA==Hdo1un9yhThtY0yr'; // Replace with your actual API key
+
+    try {
+        const response = await fetch(apiUrl, {
+            headers: {
+                'X-Api-Key': apiKey
+            }
+        });
+
+        const breedData = await response.json();
+
+        if (breedData.length > 0) {
+            const breedDetails = breedData[0];
+
+            breedInfoDiv.innerHTML = `
+                <div class="breed-details">
+                    <div class="info-item">
+                        <strong class="info-title">Common Name:</strong> <span>${breedDetails.characteristics.common_name}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Other Names:</strong> <span>${breedDetails.characteristics["other_name(s)"] || 'Not available'}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Distinctive Feature:</strong> <span>${breedDetails.characteristics.distinctive_feature || 'Not available'}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Temperament:</strong> <span>${breedDetails.characteristics.temperament || 'Not available'}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Training:</strong> <span>${breedDetails.characteristics.training || 'Not available'}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Diet:</strong> <span>${breedDetails.characteristics.diet || 'Not available'}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Lifespan:</strong> <span>${breedDetails.characteristics.lifespan || 'Not available'}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Weight:</strong> <span>${breedDetails.characteristics.weight || 'Not available'}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Average Litter Size:</strong> <span>${breedDetails.characteristics.average_litter_size || 'Not available'}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Type:</strong> <span>${breedDetails.characteristics.type || 'Not available'}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Group:</strong> <span>${breedDetails.characteristics.group || 'Not available'}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Color:</strong> <span>${breedDetails.characteristics.color || 'Not available'}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Slogan:</strong> <span>${breedDetails.characteristics.slogan || 'Not available'}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong class="info-title">Skin Type:</strong> <span>${breedDetails.characteristics.skin_type || 'Not available'}</span>
+                    </div>
+                </div>
+            `;
+        } else {
+            breedInfoDiv.innerHTML = `<div class="breed-details">No information available for this breed.</div>`;
+        }
+    } catch (error) {
+        console.error("Error fetching breed info:", error);
+        breedInfoDiv.innerHTML = `<div class="breed-details">Failed to fetch breed information. Please try again later.</div>`;
+    }
+}
+</script>
+
+</body>
+</html>

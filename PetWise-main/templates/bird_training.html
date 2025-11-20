@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bird Training Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #4a4a4a;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+            padding: 0 15px 20px;
+        }
+
+        .breed-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px 0;
+            border-radius: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            width: 50%;
+            margin: 15px;
+            border: 1px solid #b48eff;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        .training-steps {
+            margin-top: 30px;
+        }
+
+        .training-steps ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .training-steps li {
+            background: #d7bfff;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-section {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 315px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Bird Training Guide</h1>
+
+    <div class="breed-selector">
+        <select id="breed-selector" onchange="updateBreedInfo()">
+            <option value="">Select a Bird Breed</option>
+            <option value="African Grey Parrot">African Grey Parrot</option>
+            <option value="Amazon Parrot">Amazon Parrot</option>
+            <option value="Budgerigar (Budgie)">Budgerigar (Budgie)</option>
+            <option value="Canary">Canary</option>
+            <option value="Cockatiel">Cockatiel</option>
+            <option value="Duck">Duck</option>
+            <option value="Finch">Finch</option>
+            <option value="Lovebird">Lovebird</option>
+            <option value="Macaw">Macaw</option>
+            <option value="Parakeet">Parakeet</option>
+        </select>
+    </div>
+
+    <div id="description-section" class="training-steps" style="display: none;">
+        <h3>Training Steps</h3>
+        <ul id="training-steps-list"></ul>
+    </div>
+
+    <div id="video-section" class="video-section" style="display: none;">
+        <h3>Reference Video</h3>
+        <iframe id="video-embed" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    const birdBreeds = {
+        "African Grey Parrot": {
+            description: [
+                "Step 1: Create a Stimulating Environment - Provide a variety of toys (like puzzle toys and foraging toys) and perches of different sizes to keep their minds engaged.",
+                "Step 2: Use Positive Reinforcement - Reward them with small, healthy treats (like seeds or pieces of fruit) whenever they perform desired behaviors, like stepping up onto your finger.",
+                "Step 3: Teach Simple Commands - Start with 'step up' by placing your finger near their chest and encouraging them to step onto it. Use the command consistently each time.",
+                "Step 4: Socialize Regularly - Spend quality time talking and playing with your parrot daily to build a bond and reduce anxiety.",
+                "Step 5: Limit Stress - Maintain a quiet environment, avoiding sudden loud noises, and ensure they have a safe place to retreat to if they feel scared."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/BXYoDqo7AEI",
+                description: "African Grey Parrot training video."
+            }
+        },
+        "Amazon Parrot": {
+            description: [
+                "Step 1: Provide a Spacious Cage - Ensure their cage is large enough for them to move around freely and has different perches and toys for exercise.",
+                "Step 2: Encourage Interaction - Spend time talking and playing with your Amazon parrot, as they thrive on social interaction.",
+                "Step 3: Teach Simple Tricks - Start with easy tricks like 'wave' or 'spin'. Use treats to encourage them, and be patient as they learn.",
+                "Step 4: Maintain a Routine - Feed and interact with them at consistent times each day to create a sense of stability.",
+                "Step 5: Monitor Health - Keep an eye on their eating habits, droppings, and behavior for any changes that might indicate health issues."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/kRKjq-S7eeM",
+                description: "Amazon Parrot training video."
+            }
+        },
+        "Budgerigar (Budgie)": {
+            description: [
+                "Step 1: Provide a Friendly Environment - Budgies are social birds, so it's ideal to keep them in pairs or small groups to encourage natural social behaviors.",
+                "Step 2: Use Treats for Training - Offer small, healthy treats (like millet spray) to reward them when they perform desired actions, such as stepping onto your finger.",
+                "Step 3: Teach Basic Commands - Start with simple words or phrases like 'hello' and use them consistently. Repeat them often to encourage them to mimic you.",
+                "Step 4: Encourage Exploration - Allow your budgie to safely explore outside of their cage for short periods while supervised to keep them physically active.",
+                "Step 5: Spend Time Together - Build trust by handling them gently and speaking softly to them regularly."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/SWLs8bbmJB0",
+                description: "Budgerigar training video."
+            }
+        },
+        "Canary": {
+            description: [
+                "Step 1: Create a Comfortable Cage - Provide a spacious, clean cage with various perches and toys that are safe for them.",
+                "Step 2: Use Encouragement - Encourage singing by providing a comfortable environment and playing recordings of other canaries singing to stimulate them.",
+                "Step 3: Minimize Stress - Keep their environment calm and avoid loud noises or sudden movements that could frighten them.",
+                "Step 4: Socialize Gradually - Spend time sitting near their cage to get them used to your presence, talking softly to help them feel safe.",
+                "Step 5: Observe Behavior - Pay attention to their singing and behavior for signs of stress or illness, such as a loss of appetite or lethargy."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/3bDXRcEezQc",
+                description: "Canary training video."
+            }
+        },
+        "Cockatiel": {
+            description: [
+                "Step 1: Provide a Safe Space - Make sure their cage is secure, with plenty of room for them to stretch their wings and move around.",
+                "Step 2: Use Positive Reinforcement - Reward your cockatiel with treats and praise for good behavior, such as stepping up or performing tricks.",
+                "Step 3: Teach Simple Commands - Start with easy commands like 'come' and use a clicker or verbal praise when they follow through.",
+                "Step 4: Engage in Play - Provide various toys that encourage play and mental stimulation, like mirrors, bells, and chewable toys.",
+                "Step 5: Monitor Health Regularly - Keep an eye out for signs of illness, such as changes in droppings or behavior, and consult a vet if needed."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/fwpV49bV4rE",
+                description: "Cockatiel training video."
+            }
+        },
+        "Duck": {
+            description: [
+                "Step 1: Provide a Spacious Outdoor Area - Ducks need plenty of room to roam and swim. Create a safe, secure environment with a pool or pond.",
+                "Step 2: Use Treats for Training - Ducks respond well to food, so use treats like peas or corn to encourage desired behaviors.",
+                "Step 3: Teach Basic Commands - Start with commands like 'come' or 'stay' and reward them when they follow through.",
+                "Step 4: Socialize Regularly - Spend time with your ducks daily to help them become comfortable around you.",
+                "Step 5: Ensure Cleanliness - Regularly clean their living space to promote good health and prevent illness."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/8ndJYAjfz1M",
+                description: "Duck training video."
+            }
+        },
+        "Finch": {
+            description: [
+                "Step 1: Create a Comfortable Cage - Provide a spacious cage with appropriate perches, toys, and a comfortable nesting area.",
+                "Step 2: Encourage Social Interaction - Keep finches in pairs or small groups to encourage social behaviors, as they thrive on companionship.",
+                "Step 3: Use Treats for Training - Offer small treats (like seeds) to reward good behavior, such as singing or interacting with you.",
+                "Step 4: Provide a Routine - Maintain a consistent feeding and cleaning schedule to create stability in their environment.",
+                "Step 5: Observe Behavior - Keep an eye on their singing and social interactions to ensure they are healthy and happy."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/qYwPO-XatT0",
+                description: "Finch training video."
+            }
+        },
+        "Lovebird": {
+            description: [
+                "Step 1: Provide a Cozy Environment - Lovebirds thrive in pairs, so consider keeping them together for companionship.",
+                "Step 2: Use Positive Reinforcement - Reward good behavior with treats and praise, especially when they learn new commands.",
+                "Step 3: Teach Basic Commands - Start with simple commands like 'step up' and reward them when they follow through.",
+                "Step 4: Engage in Play - Provide toys that stimulate their curiosity and encourage them to explore their environment.",
+                "Step 5: Spend Quality Time - Spend time with your lovebird every day to build a strong bond and trust."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/7bR1v7g942I",
+                description: "Lovebird training video."
+            }
+        },
+        "Macaw": {
+            description: [
+                "Step 1: Create a Large, Stimulating Cage - Ensure their living space is spacious and filled with various toys and perches.",
+                "Step 2: Use Positive Reinforcement - Offer treats and praise when they perform desired behaviors, like talking or stepping up.",
+                "Step 3: Teach Tricks Gradually - Start with simple tricks like waving or spinning, using treats to encourage them.",
+                "Step 4: Socialize Frequently - Spend time interacting with your macaw daily to strengthen your bond.",
+                "Step 5: Monitor Their Health - Regularly check for signs of illness, and ensure they receive proper nutrition."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/Yp8AA2cyZ_Q",
+                description: "Macaw training video."
+            }
+        },
+        "Parakeet": {
+            description: [
+                "Step 1: Provide a Comfortable Cage - Ensure the cage is spacious with a variety of perches and toys.",
+                "Step 2: Use Treats for Training - Offer treats when they perform desired behaviors, like sitting on your finger.",
+                "Step 3: Teach Simple Words - Start with basic words and phrases, repeating them consistently to encourage mimicry.",
+                "Step 4: Encourage Exploration - Allow your parakeet to explore outside the cage while supervised.",
+                "Step 5: Build Trust Gradually - Handle them gently and spend time talking to them daily."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/t_Q7WMntlMo",
+                description: "Parakeet training video."
+            }
+        }
+    };
+
+    function updateBreedInfo() {
+        const breed = document.getElementById("breed-selector").value;
+        const descriptionSection = document.getElementById("description-section");
+        const trainingStepsList = document.getElementById("training-steps-list");
+        const videoSection = document.getElementById("video-section");
+        const videoEmbed = document.getElementById("video-embed");
+
+        trainingStepsList.innerHTML = "";
+        if (birdBreeds[breed]) {
+            birdBreeds[breed].description.forEach(step => {
+                const li = document.createElement("li");
+                li.textContent = step;
+                trainingStepsList.appendChild(li);
+            });
+            videoEmbed.src = birdBreeds[breed].video.src;
+            descriptionSection.style.display = "block";
+            videoSection.style.display = "block";
+        } else {
+            descriptionSection.style.display = "none";
+            videoSection.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>

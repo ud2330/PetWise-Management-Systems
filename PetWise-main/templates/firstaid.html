@@ -1,0 +1,135 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetWise First Aid</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #4a4a4a;
+        }
+
+        h4 {
+            font-size: 24px;
+            margin: 15px 0;
+            color: #4a4a4a;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+            padding: 0 15px 20px;
+        }
+
+        .first-aid-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .first-aid-list li {
+            background: #d7bfff;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="{{ url_for('static', filename='images/First aid kit-bro.svg') }}" alt="Pet Health" width="300px" height="300px">
+    <h2>Pet First Aid</h2>
+    <p>Learn how to administer basic first aid to your pet in case of emergencies. This information is suitable for all types of pets.</p>
+
+    <div class="section">
+        <h4>Basic First Aid Steps</h4>
+        <ul class="first-aid-list">
+            <li>
+                <strong>Assess the Situation:</strong> Check for safety. Ensure both you and your pet are in a safe environment.
+            </li>
+            <li>
+                <strong>Stay Calm:</strong> Your pet can sense your emotions. Staying calm will help them feel secure.
+            </li>
+            <li>
+                <strong>Control Bleeding:</strong> Apply pressure to the wound using a clean cloth. If bleeding persists, seek veterinary help.
+            </li>
+            <li>
+                <strong>Check for Breathing:</strong> If your pet is not breathing, perform CPR. For small pets, place them on their side and give gentle breaths.
+            </li>
+            <li>
+                <strong>Choking:</strong> If your pet is choking, perform the Heimlich maneuver. For small pets, hold them with their back against your chest and give a few thrusts.
+            </li>
+            <li>
+                <strong>Burns:</strong> For minor burns, cool the area with running water. Never use ice. Cover with a clean cloth and seek veterinary help.
+            </li>
+            <li>
+                <strong>Poisoning:</strong> If you suspect poisoning, contact your veterinarian immediately. Bring the product label with you if possible.
+            </li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h4>Specific Situations</h4>
+        <ul class="first-aid-list">
+            <li>
+                <strong>Heatstroke:</strong> Move your pet to a cooler area, offer water, and apply cool (not cold) water to their body. Seek veterinary assistance.
+            </li>
+            <li>
+                <strong>Fractures:</strong> Immobilize the injured area and avoid moving your pet unless necessary. Seek immediate veterinary care.
+            </li>
+            <li>
+                <strong>Seizures:</strong> Clear the area around your pet, and do not try to restrain them. After the seizure, comfort your pet and consult a veterinarian.
+            </li>
+            <li>
+                <strong>Diarrhea or Vomiting:</strong> Monitor your pet. Withhold food for 12 hours but provide water. If symptoms persist, consult your veterinarian.
+            </li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h4>Important Tips</h4>
+        <p>Always keep a pet first aid kit handy, and familiarize yourself with the contents. Regularly check and update the kit as needed. Include items such as:</p>
+        <ul class="first-aid-list">
+            <li>Gauze and bandages</li>
+            <li>Antiseptic wipes</li>
+            <li>Thermometer</li>
+            <li>Pet-safe pain reliever (consult your vet)</li>
+            <li>Scissors and tweezers</li>
+            <li>Emergency contact numbers for your veterinarian</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pig Training Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #4a4a4a;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+            padding: 0 15px 20px;
+        }
+
+        .breed-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px 0;
+            border-radius: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            width: 50%;
+            margin: 15px;
+            border: 1px solid #b48eff;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        .training-steps {
+            margin-top: 30px;
+        }
+
+        .training-steps ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .training-steps li {
+            background: #d7bfff;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-section {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 315px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Pig Training Guide</h1>
+
+    <div class="breed-selector">
+        <select id="breed-selector" onchange="updateBreedInfo()">
+            <option value="">Select a Pig Breed</option>
+            <option value="Juliana Pig">Juliana Pig</option>
+            <option value="Kune Kune Pig">Kune Kune Pig</option>
+            <option value="Miniature Pig">Miniature Pig</option>
+            <option value="Potbellied Pig">Potbellied Pig</option>
+            
+        </select>
+    </div>
+
+    <div id="description-section" class="training-steps" style="display: none;">
+        <h3>Training Steps</h3>
+        <ul id="training-steps-list"></ul>
+    </div>
+
+    <div id="video-section" class="video-section" style="display: none;">
+        <h3>Reference Video</h3>
+        <iframe id="video-embed" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    const pigBreeds = {
+        "Juliana Pig": {
+            description: [
+                "Step 1: Create a Comfortable Space - Ensure your Juliana Pig has a cozy area with soft bedding.",
+                "Step 2: Establish a Feeding Routine - Feed them at the same time each day to help them feel secure.",
+                "Step 3: Use Treats for Training - Offer small treats to encourage good behavior during training sessions.",
+                "Step 4: Practice Basic Commands - Teach simple commands like 'sit' or 'come' using positive reinforcement.",
+                "Step 5: Incorporate Playtime - Engage them with toys to promote exercise and mental stimulation.",
+                "Step 6: Socialize Regularly - Introduce them to new people and environments to build confidence.",
+                "Step 7: Keep Training Sessions Short - Limit sessions to 5-10 minutes to maintain their interest.",
+                "Step 8: Be Consistent - Use the same commands and signals to avoid confusion.",
+                "Step 9: Monitor Their Behavior - Observe their reactions and adjust your training approach as needed.",
+                "Step 10: Be Patient - Each pig learns at its own pace; patience is essential."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/ewuatbB9G0A",
+                description: "Juliana Pig training video: Tips for training your Juliana Pig."
+            }
+        },
+        "Kune Kune Pig": {
+            description: [
+                "Step 1: Create a Safe Enclosure - Provide a secure area for your Kune Kune Pig to roam.",
+                "Step 2: Develop a Feeding Schedule - Consistently feed them at the same times daily.",
+                "Step 3: Use Positive Reinforcement - Reward good behavior with treats.",
+                "Step 4: Teach Basic Commands - Start with simple commands like 'stay' and 'come'.",
+                "Step 5: Engage in Play - Use toys to encourage play and exercise.",
+                "Step 6: Socialize with Other Animals - Introduce them to other pets to enhance social skills.",
+                "Step 7: Keep Training Duration Short - Limit training sessions to 5-10 minutes.",
+                "Step 8: Be Consistent - Use the same words and gestures for commands.",
+                "Step 9: Observe and Adapt - Watch their reactions and adjust your methods if needed.",
+                "Step 10: Practice Patience - Training takes time, so be patient with your Kune Kune Pig."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/2N_zsKmjt_o",
+                description: "Kune Kune Pig training video: Best practices for training and care."
+            }
+        },
+        "Miniature Pig": {
+            description: [
+                "Step 1: Create a Comfortable Living Space - Provide soft bedding and a quiet area.",
+                "Step 2: Establish a Feeding Routine - Feed them at the same time every day.",
+                "Step 3: Use Treats as Rewards - Encourage learning by offering their favorite snacks.",
+                "Step 4: Start with Simple Commands - Teach basic commands like 'sit' and 'stay'.",
+                "Step 5: Provide Interactive Toys - Engage them with toys to keep them mentally stimulated.",
+                "Step 6: Socialize with Other Pets - Introduce them to other animals and people gradually.",
+                "Step 7: Keep Training Sessions Short - Aim for 5-10 minute sessions.",
+                "Step 8: Be Consistent with Commands - Use the same commands for training.",
+                "Step 9: Monitor Their Progress - Adjust your training techniques based on their behavior.",
+                "Step 10: Be Patient and Positive - Encourage learning with patience and positivity."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/Rnc1XuIoDGs",
+                description: "Miniature Pig training video: Tips for effective training."
+            }
+        },
+        "Potbellied Pig": {
+            description: [
+                "Step 1: Create a Safe Space - Ensure a safe and comfortable area for your Potbellied Pig.",
+                "Step 2: Set a Feeding Schedule - Consistent feeding times help establish a routine.",
+                "Step 3: Use Positive Reinforcement - Reward with treats for good behavior.",
+                "Step 4: Teach Basic Commands - Start with easy commands like 'sit' and 'come'.",
+                "Step 5: Provide Mental Stimulation - Use puzzles and toys for engagement.",
+                "Step 6: Socialize Regularly - Introduce them to new experiences and people.",
+                "Step 7: Limit Training Duration - Keep sessions to 5-10 minutes to keep their interest.",
+                "Step 8: Maintain Consistency - Use the same words and gestures for commands.",
+                "Step 9: Observe Behavior - Watch their reactions to refine your training approach.",
+                "Step 10: Practice Patience - Training takes time; be patient with your pig."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/7JhSX-dFRyA",
+                description: "Potbellied Pig training video: How to train and care for your pig."
+            }
+        }
+    };
+
+    function updateBreedInfo() {
+        const breedSelector = document.getElementById('breed-selector');
+        const selectedBreed = breedSelector.value;
+        const descriptionSection = document.getElementById('description-section');
+        const trainingStepsList = document.getElementById('training-steps-list');
+        const videoSection = document.getElementById('video-section');
+        const videoEmbed = document.getElementById('video-embed');
+
+        if (selectedBreed) {
+            const breedInfo = pigBreeds[selectedBreed];
+            trainingStepsList.innerHTML = '';
+            breedInfo.description.forEach(step => {
+                const li = document.createElement('li');
+                li.innerHTML = step;
+                trainingStepsList.appendChild(li);
+            });
+
+            videoEmbed.src = breedInfo.video.src;
+            descriptionSection.style.display = 'block';
+            videoSection.style.display = 'block';
+        } else {
+            descriptionSection.style.display = 'none';
+            videoSection.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>

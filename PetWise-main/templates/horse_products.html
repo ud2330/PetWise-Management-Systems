@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horse Products</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.815);
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        select, button {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        button {
+            background: linear-gradient(135deg, #c79bff, #b48eff);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #b48eff, #c79bff); 
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Find Horse Products</h1>
+    <label for="horse-select">Choose a horse product:</label>
+    <select id="horse-select">
+        <option value="">Select a horse product</option>
+        <option value="Horse Halter">Horse Halter</option>
+    </select>
+    <br>
+    <button onclick="searchHorseProducts()">Search</button>
+</div>
+
+<script>
+    function searchHorseProducts() {
+        var horseProduct = document.getElementById("horse-select").value;
+        if (horseProduct) {
+            var searchUrl = `https://www.google.com/search?tbm=shop&q=${horseProduct}+horse+products`;
+            window.open(searchUrl, "_blank");
+        } else {
+            alert("Please select a horse product.");
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopter Details & Recommendations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #4a4a4a;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 950px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin: 15px 0;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+            width: 98%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #b48af2;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background-color: #b55edb;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: #f3d5f6;
+            color: #4a4a4a;
+        }
+        td {
+            background-color: #fff;
+        }
+        .adopt-btn {
+            background-color: #8e44ad;
+            color: white;
+            padding: 9px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .adopt-btn:hover {
+            background-color: #732d91;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Adopter Details</h1>
+    
+        <form id="adopter-form">
+            <div class="form-group">
+                <label for="adopter-name">Name:</label>
+                <input type="text" id="adopter-name" name="adopter-name" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="adopter-phone">Phone Number:</label>
+                <input type="tel" id="adopter-phone" name="adopter-phone" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="adopter-email">Email:</label>
+                <input type="email" id="adopter-email" name="adopter-email" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="adopter-address">Address:</label>
+                <input type="text" id="adopter-address" name="adopter-address" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="adopter-preferences">Preferences:</label>
+                <textarea id="adopter-preferences" name="adopter-preferences" rows="4" placeholder="Type of pet, breed, age, gender, etc." required></textarea>
+            </div>
+    
+            <button type="button" onclick="recommendPets()">Submit & Get Recommendations</button>
+        </form>
+      
+        <div id="recommendation-section" class="hidden">
+            <h2>Recommended Pets for You</h2>
+            <table id="recommended-pets">
+                <thead>
+                    <tr>
+                        <th>Seller Name</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Pet Type</th>
+                        <th>Breed</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Health</th>
+                        <th>Adopt</th>
+                    </tr>
+                </thead>
+                <tbody id="recommendations-table">
+                    {% for seller in sellers %}
+                    <tr id="pet-{{ seller.pet._id }}">
+                        <td>{{ seller.name }}</td>
+                        <td>{{ seller.phone }}</td>
+                        <td>{{ seller.email }}</td>
+                        <td>{{ seller.address }}</td>
+                        <td>{{ seller.pet.type }}</td>
+                        <td>{{ seller.pet.breed }}</td>
+                        <td>{{ seller.pet.age }}</td>
+                        <td>{{ seller.pet.gender }}</td>
+                        <td>{{ seller.pet.health }}</td>
+                        <td>
+                            <button onclick="triggerAdopt('{{ seller.pet._id }}')" class="adopt-btn">Adopt</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Popup message -->
+        <div id="popup" class="popup">Adopted successfully!</div>
+    </div>
+    
+    <script>
+        function recommendPets() {
+            const preferences = document.getElementById('adopter-preferences').value.toLowerCase();
+            const recommendationSection = document.getElementById('recommendation-section');
+            const rows = document.querySelectorAll('#recommendations-table tr');
+
+            let hasRecommendations = false;
+            rows.forEach(row => {
+                const petType = row.querySelector('td:nth-child(5)').innerText.toLowerCase();
+                const breed = row.querySelector('td:nth-child(6)').innerText.toLowerCase();
+                const gender = row.querySelector('td:nth-child(8)').innerText.toLowerCase();
+
+                if (preferences.includes(petType) || preferences.includes(breed) || preferences.includes(gender)) {
+                    row.style.display = '';
+                    hasRecommendations = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            if (hasRecommendations) {
+                recommendationSection.classList.remove('hidden');
+            } else {
+                alert("No pets matched your preferences. Please try again.");
+            }
+        }
+
+        function triggerAdopt(petId) {
+    const petRow = document.getElementById(`pet-${petId}`);
+    
+    if (petRow) {
+        petRow.remove();  // Removes the row immediately from the table
+    }
+
+    const userId = '{{ user_id }}';  // Ensure user_id is set correctly in your template
+    
+    fetch(`http://localhost:5000/adopt_pet/${petId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ user_id: userId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        showPopup(data.message);  // Show success message
+    });
+}
+
+    </script>
+</body>
+</html>

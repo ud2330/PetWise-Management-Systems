@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabbit Training Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #4a4a4a;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+            padding: 0 15px 20px;
+        }
+
+        .breed-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px 0;
+            border-radius: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            width: 50%;
+            margin: 15px;
+            border: 1px solid #b48eff;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        .training-steps {
+            margin-top: 30px;
+        }
+
+        .training-steps ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .training-steps li {
+            background: #d7bfff;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-section {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 315px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Rabbit Training Guide</h1>
+
+    <div class="breed-selector">
+        <select id="breed-selector" onchange="updateBreedInfo()">
+            <option value="">Select a Rabbit Breed</option>
+            <option value="Holland Lop">Holland Lop</option>
+            <option value="Mini Rex">Mini Rex</option>
+            <option value="Netherland Dwarf">Netherland Dwarf</option>
+            <option value="English Angora">English Angora</option>
+            <option value="Miniature Lion Lop">Miniature Lion Lop</option>
+        </select>
+    </div>
+
+    <div id="description-section" class="training-steps" style="display: none;">
+        <h3>Training Steps</h3>
+        <ul id="training-steps-list"></ul>
+    </div>
+
+    <div id="video-section" class="video-section" style="display: none;">
+        <h3>Reference Video</h3>
+        <iframe id="video-embed" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    const rabbitBreeds = {
+        "Holland Lop": {
+            description: [
+                "Step 1: Create a Safe Space - Designate a quiet area for your rabbit to feel secure.",
+                "Step 2: Establish a Routine - Feed and handle them at the same times each day.",
+                "Step 3: Use Treats for Training - Use their favorite treats to encourage desired behaviors.",
+                "Step 4: Teach Basic Commands - Start with simple commands like 'come' using treats.",
+                "Step 5: Encourage Litter Training - Place a litter box in their space to encourage use.",
+                "Step 6: Introduce Obstacles - Use tunnels and toys to stimulate exploration and activity.",
+                "Step 7: Be Patient - Training takes time; reward progress and remain calm."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/9lPE3IAw62g",
+                description: "Holland Lop training video: Tips for training your Holland Lop."
+            }
+        },
+        "Mini Rex": {
+            description: [
+                "Step 1: Create a Comfortable Environment - Ensure a cozy living space with soft bedding.",
+                "Step 2: Handle Them Regularly - Frequent gentle handling helps build trust.",
+                "Step 3: Use Positive Reinforcement - Always reward with treats for following commands.",
+                "Step 4: Teach 'Come' and 'Stay' - Use treats to train these basic commands.",
+                "Step 5: Introduce Playtime - Engage them with toys and interactive games.",
+                "Step 6: Monitor Their Behavior - Adjust training based on their comfort level.",
+                "Step 7: Be Consistent - Use the same commands and routines to reinforce learning."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/p0mBB5XheQ8",
+                description: "Mini Rex training video: Effective training techniques for Mini Rex rabbits."
+            }
+        },
+        "Netherland Dwarf": {
+            description: [
+                "Step 1: Set Up a Calm Space - A quiet area will help them feel secure.",
+                "Step 2: Socialization is Key - Spend time with them daily to build trust.",
+                "Step 3: Use Treats for Training - Reward them with treats to encourage learning.",
+                "Step 4: Teach Simple Tricks - Start with 'jump' or 'roll over' using treats.",
+                "Step 5: Create a Play Area - Use tunnels and toys to promote exploration.",
+                "Step 6: Encourage Litter Habits - Introduce a litter box to promote good habits.",
+                "Step 7: Be Patient and Gentle - Take your time; every rabbit learns at their own pace."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/AVnm-bMkUEM",
+                description: "Netherland Dwarf training video: Tips for training your Netherland Dwarf."
+            }
+        },
+        "English Angora": {
+            description: [
+                "Step 1: Create a Comfortable Space - Provide a warm, secure environment.",
+                "Step 2: Regular Grooming - Get them used to being groomed from a young age.",
+                "Step 3: Use Treats for Training - Reward them with treats to encourage behavior.",
+                "Step 4: Teach Basic Commands - Start with commands like 'sit' or 'come.'",
+                "Step 5: Interactive Play - Use toys that stimulate their natural instincts.",
+                "Step 6: Monitor Their Mood - Adjust training based on their energy and comfort level.",
+                "Step 7: Be Consistent and Patient - Routine helps rabbits learn more effectively."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/eOO1F45oik4",
+                description: "English Angora training video: Effective training tips for English Angora rabbits."
+            }
+        },
+        "Miniature Lion Lop": {
+            description: [
+                "Step 1: Create a Safe Zone - A quiet area with cozy bedding will help them feel at home.",
+                "Step 2: Handle with Care - Gentle handling builds trust and comfort.",
+                "Step 3: Use Positive Reinforcement - Reward desired behaviors with treats.",
+                "Step 4: Teach Commands - Begin with 'come' or 'stay' using treats as motivation.",
+                "Step 5: Encourage Playtime - Introduce toys that encourage active play.",
+                "Step 6: Socialize Regularly - Spend time with them daily to enhance bonding.",
+                "Step 7: Be Patient and Consistent - Every rabbit learns differently; adjust your methods accordingly."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/69Q3IiJqCgI",
+                description: "Miniature Lion Lop training video: Tips for training your Miniature Lion Lop."
+            }
+        }
+    };
+
+    function updateBreedInfo() {
+        const breedSelector = document.getElementById('breed-selector');
+        const selectedBreed = breedSelector.value;
+        const descriptionSection = document.getElementById('description-section');
+        const trainingStepsList = document.getElementById('training-steps-list');
+        const videoSection = document.getElementById('video-section');
+        const videoEmbed = document.getElementById('video-embed');
+
+        if (selectedBreed) {
+            const breedInfo = rabbitBreeds[selectedBreed];
+            trainingStepsList.innerHTML = '';
+            breedInfo.description.forEach(step => {
+                const li = document.createElement('li');
+                li.innerHTML = step;
+                trainingStepsList.appendChild(li);
+            });
+
+            videoEmbed.src = breedInfo.video.src;
+            descriptionSection.style.display = 'block';
+            videoSection.style.display = 'block';
+        } else {
+            descriptionSection.style.display = 'none';
+            videoSection.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>

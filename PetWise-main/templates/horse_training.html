@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horse Breeds Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #4a4a4a;
+        }
+
+        .breed-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px 0;
+            border-radius: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            width: 50%;
+            margin: 15px;
+            border: 1px solid #b48eff;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        .training-steps {
+            margin-top: 30px;
+        }
+
+        .training-steps ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .training-steps li {
+            background: #d7bfff;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-section {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 315px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Horse Breeds Guide</h1>
+
+    <div class="breed-selector">
+        <select id="breed-selector" onchange="updateBreedInfo()">
+            <option value="">Select a Horse Breed</option>
+            <option value="Arabian Horse">Arabian Horse</option>
+            <option value="Appaloosa">Appaloosa</option>
+            <option value="Kachchh Horse">Kachchh Horse</option>
+            <option value="Marwari Horse">Marwari Horse</option>
+            <option value="Thoroughbred">Thoroughbred</option>
+        </select>
+    </div>
+
+    <div id="description-section" class="training-steps" style="display: none;">
+        <h3>Training Steps</h3>
+        <ul id="training-steps-list"></ul>
+    </div>
+
+    <div id="video-section" class="video-section" style="display: none;">
+        <h3>Reference Video</h3>
+        <iframe id="video-embed" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    const horseBreeds = {
+        "Arabian Horse": {
+            description: [
+                "Step 1: Build Trust - Spend time with your Arabian Horse to develop a bond.",
+                "Step 2: Basic Commands - Teach commands like 'walk', 'trot', and 'canter'.",
+                "Step 3: Use Positive Reinforcement - Reward good behavior with treats.",
+                "Step 4: Desensitization - Gradually expose them to different stimuli.",
+                "Step 5: Practice Groundwork - Teach them to respond to halter cues.",
+                "Step 6: Maintain Consistency - Use the same cues and signals.",
+                "Step 7: Regular Exercise - Keep them physically active to build stamina.",
+                "Step 8: Introduce Trail Riding - Start with short rides in a safe environment.",
+                "Step 9: Regular Health Checks - Monitor their health for optimal performance.",
+                "Step 10: Patience is Key - Allow them to learn at their own pace."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/pOQHfIj56fA",
+                description: "Arabian Horse training video: Essential training techniques."
+            }
+        },
+        "Appaloosa": {
+            description: [
+                "Step 1: Build a Connection - Spend quality time with your Appaloosa.",
+                "Step 2: Basic Groundwork - Teach them to respect personal space.",
+                "Step 3: Introduce Lunging - Use lunging to improve responsiveness.",
+                "Step 4: Teach Riding Commands - Start with basic commands for riding.",
+                "Step 5: Use Positive Reinforcement - Reward them for correct responses.",
+                "Step 6: Regular Handling - Keep them comfortable with regular handling.",
+                "Step 7: Introduce Obstacles - Use obstacles to enhance confidence.",
+                "Step 8: Ensure Proper Nutrition - A balanced diet is crucial for performance.",
+                "Step 9: Gradual Exposure to Different Environments - Help them adapt.",
+                "Step 10: Patience and Consistency - Be patient and consistent in training."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/5CpURyqgVmM",
+                description: "Appaloosa training video: Training techniques for Appaloosas."
+            }
+        },
+        "Kachchh Horse": {
+            description: [
+                "Step 1: Familiarize with Handling - Begin with gentle handling.",
+                "Step 2: Teach Basic Commands - Use simple commands for groundwork.",
+                "Step 3: Introduce Riding Gradually - Start with short riding sessions.",
+                "Step 4: Focus on Conditioning - Build their endurance gradually.",
+                "Step 5: Positive Reinforcement - Reward good behavior with treats.",
+                "Step 6: Groundwork Exercises - Use groundwork to enhance obedience.",
+                "Step 7: Regular Exercise - Keep them active and engaged.",
+                "Step 8: Socialization - Introduce them to different environments and people.",
+                "Step 9: Monitor Health and Nutrition - Ensure they are well-fed and healthy.",
+                "Step 10: Practice Patience - Each horse learns at its own pace."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/4Xg4yKYVcW8",
+                description: "Kachchh Horse training video: Tips for Kachchh horses."
+            }
+        },
+        "Marwari Horse": {
+            description: [
+                "Step 1: Build Trust - Spend time bonding with your Marwari Horse.",
+                "Step 2: Teach Basic Commands - Start with basic commands for groundwork.",
+                "Step 3: Introduce Riding Slowly - Gradually start riding in a safe area.",
+                "Step 4: Consistent Training Sessions - Keep sessions regular and positive.",
+                "Step 5: Use Positive Reinforcement - Encourage learning with treats.",
+                "Step 6: Socialization - Expose them to various environments and situations.",
+                "Step 7: Monitor Their Health - Regular check-ups for optimal health.",
+                "Step 8: Focus on Maneuvering Skills - Teach them to respond to leg cues.",
+                "Step 9: Groundwork Practice - Reinforce good behavior with groundwork.",
+                "Step 10: Patience is Essential - Allow them time to learn."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/O8BqdWSo_aQ",
+                description: "Marwari Horse training video: Effective training methods."
+            }
+        },
+        "Thoroughbred": {
+            description: [
+                "Step 1: Build a Strong Foundation - Establish trust through consistent handling.",
+                "Step 2: Teach Basic Groundwork - Focus on respect and responsiveness.",
+                "Step 3: Introduce Riding Commands - Use clear commands for riding.",
+                "Step 4: Consistent Training - Maintain a regular training schedule.",
+                "Step 5: Physical Conditioning - Ensure they are fit for riding.",
+                "Step 6: Socialization - Introduce them to different horses and people.",
+                "Step 7: Use Positive Reinforcement - Reward them for correct behavior.",
+                "Step 8: Regular Health Monitoring - Keep track of their health status.",
+                "Step 9: Expose to Varied Environments - Help them adapt to different settings.",
+                "Step 10: Be Patient - Understand that training takes time."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/jt_P5wdpJx0",
+                description: "Thoroughbred training video: Best practices for training Thoroughbreds."
+            }
+        }
+    };
+
+    function updateBreedInfo() {
+        const breedSelector = document.getElementById('breed-selector');
+        const selectedBreed = breedSelector.value;
+        const descriptionSection = document.getElementById('description-section');
+        const trainingStepsList = document.getElementById('training-steps-list');
+        const videoSection = document.getElementById('video-section');
+        const videoEmbed = document.getElementById('video-embed');
+
+        if (selectedBreed) {
+            const breedInfo = horseBreeds[selectedBreed];
+            trainingStepsList.innerHTML = '';
+            breedInfo.description.forEach(step => {
+                const li = document.createElement('li');
+                li.innerHTML = step;
+                trainingStepsList.appendChild(li);
+            });
+
+            videoEmbed.src = breedInfo.video.src;
+            descriptionSection.style.display = 'block';
+            videoSection.style.display = 'block';
+        } else {
+            descriptionSection.style.display = 'none';
+            videoSection.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squirrel Breeds</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #4a4a4a;
+        }
+
+        .squirrel-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px 0;
+            border-radius: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            width: 50%;
+            margin: 15px;
+            border: 1px solid #b48eff;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        .training-steps {
+            margin-top: 30px;
+        }
+
+        .training-steps ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .training-steps li {
+            background: #d7bfff;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-section {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 315px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Squirrel Breeds</h1>
+
+    <div class="squirrel-selector">
+        <select id="squirrel-selector" onchange="updateSquirrelInfo()">
+            <option value="">Select a Squirrel Breed</option>
+            <option value="Eastern Gray Squirrel">Eastern Gray Squirrel</option>
+            <option value="Fox Squirrel">Fox Squirrel</option>
+            <option value="Flying Squirrel">Flying Squirrel</option>
+            <option value="Indian Palm Squirrel">Indian Palm Squirrel</option>
+            <option value="Red Squirrel">Red Squirrel</option>
+        </select>
+    </div>
+
+    <div id="description-section" class="training-steps" style="display: none;">
+        <h3>Training Steps</h3>
+        <ul id="training-steps-list"></ul>
+    </div>
+
+    <div id="video-section" class="video-section" style="display: none;">
+        <h3>Reference Video</h3>
+        <iframe id="video-embed" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    const squirrelBreeds = {
+        "Eastern Gray Squirrel": {
+            description: [
+                "Step 1: Create a safe and welcoming environment for the squirrel.",
+                "Step 2: Offer a balanced diet with nuts, fruits, and vegetables.",
+                "Step 3: Use positive reinforcement during training with treats.",
+                "Step 4: Allow them to explore their surroundings to build confidence.",
+                "Step 5: Gradually introduce training commands and hand signals.",
+                "Step 6: Socialize them regularly with different people.",
+                "Step 7: Provide mental stimulation with toys and puzzles.",
+                "Step 8: Monitor their behavior and adjust training methods accordingly.",
+                "Step 9: Be patient and consistent with commands.",
+                "Step 10: Gradually increase the complexity of tricks or commands."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/InCQMa1qYwY",
+                description: "Training tips for Eastern Gray Squirrels."
+            }
+        },
+        "Fox Squirrel": {
+            description: [
+                "Step 1: Create a secure enclosure for the squirrel.",
+                "Step 2: Introduce them to a variety of foods, including seeds and nuts.",
+                "Step 3: Encourage foraging behavior to stimulate their instincts.",
+                "Step 4: Use clicker training for positive reinforcement.",
+                "Step 5: Spend time bonding with them through gentle handling.",
+                "Step 6: Gradually introduce training commands using their favorite treats.",
+                "Step 7: Ensure they have plenty of toys to prevent boredom.",
+                "Step 8: Be consistent in training sessions and techniques.",
+                "Step 9: Observe their behavior and adapt to their learning style.",
+                "Step 10: Always provide a safe and enriched environment."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/InCQMa1qYwY",
+                description: "Tips for training Fox Squirrels."
+            }
+        },
+        "Flying Squirrel": {
+            description: [
+                "Step 1: Set up a large, multi-level habitat for them to glide.",
+                "Step 2: Offer a varied diet rich in fruits, vegetables, and protein.",
+                "Step 3: Provide a safe space for them to practice gliding.",
+                "Step 4: Use rewards to encourage them during training.",
+                "Step 5: Create a routine for feeding and training.",
+                "Step 6: Socialize them to become comfortable with handling.",
+                "Step 7: Allow them to explore supervised areas for exercise.",
+                "Step 8: Use positive reinforcement to teach simple commands.",
+                "Step 9: Monitor their interactions and behaviors for safety.",
+                "Step 10: Be patient and consistent during training."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/InCQMa1qYwY",
+                description: "Flying Squirrel training and care tips."
+            }
+        },
+        "Indian Palm Squirrel": {
+            description: [
+                "Step 1: Provide a cozy and safe living environment.",
+                "Step 2: Offer a balanced diet with fruits, vegetables, and nuts.",
+                "Step 3: Encourage natural foraging behaviors.",
+                "Step 4: Use treats to reward good behavior during training.",
+                "Step 5: Gradually introduce them to new environments.",
+                "Step 6: Allow plenty of time for socialization.",
+                "Step 7: Provide toys and climbing structures for exercise.",
+                "Step 8: Be consistent with commands and training routines.",
+                "Step 9: Observe their preferences and tailor training accordingly.",
+                "Step 10: Keep training sessions short and engaging."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/u3gxjQmNZkg",
+                description: "Indian Palm Squirrel training overview."
+            }
+        },
+        "Red Squirrel": {
+            description: [
+                "Step 1: Create a secure enclosure with hiding spots.",
+                "Step 2: Feed them a diet rich in nuts and seeds.",
+                "Step 3: Encourage climbing and foraging behaviors.",
+                "Step 4: Use positive reinforcement techniques for training.",
+                "Step 5: Socialize them with your family members.",
+                "Step 6: Allow them to explore in a safe, controlled space.",
+                "Step 7: Offer interactive toys for mental stimulation.",
+                "Step 8: Be patient and adjust training based on their reactions.",
+                "Step 9: Maintain consistency in commands and routines.",
+                "Step 10: Always provide a safe and enriching environment."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/kknxzMfPA8A",
+                description: "Training techniques for Red Squirrels."
+            }
+        }
+    };
+
+    function updateSquirrelInfo() {
+        const squirrelSelector = document.getElementById('squirrel-selector');
+        const selectedSquirrel = squirrelSelector.value;
+        const descriptionSection = document.getElementById('description-section');
+        const trainingStepsList = document.getElementById('training-steps-list');
+        const videoSection = document.getElementById('video-section');
+        const videoEmbed = document.getElementById('video-embed');
+
+        if (selectedSquirrel) {
+            const squirrelInfo = squirrelBreeds[selectedSquirrel];
+            trainingStepsList.innerHTML = '';
+            squirrelInfo.description.forEach(step => {
+                const li = document.createElement('li');
+                li.innerHTML = step;
+                trainingStepsList.appendChild(li);
+            });
+
+            videoEmbed.src = squirrelInfo.video.src;
+            descriptionSection.style.display = 'block';
+            videoSection.style.display = 'block';
+        } else {
+            descriptionSection.style.display = 'none';
+            videoSection.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Training Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #4a4a4a;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+            padding: 0 15px 20px;
+        }
+
+        .breed-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px 0;
+            border-radius: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            width: 50%;
+            margin: 15px;
+            border: 1px solid #b48eff;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        .training-steps {
+            margin-top: 30px;
+        }
+
+        .training-steps ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .training-steps li {
+            background: #d7bfff;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-section {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 315px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Fish Training Guide</h1>
+
+    <div class="breed-selector">
+        <select id="breed-selector" onchange="updateBreedInfo()">
+            <option value="">Select a Fish Breed</option>
+            <option value="Angelfish">Angelfish</option>
+            <option value="Betta Fish">Betta Fish</option>
+            <option value="Corydoras Catfish">Corydoras Catfish</option>
+            <option value="Goldfish">Goldfish</option>
+            <option value="Guppy">Guppy</option>
+            <option value="Molly Fish">Molly Fish</option>
+            <option value="Neon Tetra">Neon Tetra</option>
+            <option value="Platies">Platies</option>
+            <option value="Zebra Danio">Zebra Danio</option>
+        </select>
+    </div>
+
+    <div id="description-section" class="training-steps" style="display: none;">
+        <h3>Training Steps</h3>
+        <ul id="training-steps-list"></ul>
+    </div>
+
+    <div id="video-section" class="video-section" style="display: none;">
+        <h3>Reference Video</h3>
+        <iframe id="video-embed" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    const fishBreeds = {
+        "Angelfish": {
+            description: [
+                "Step 1: Create a Spacious Tank - Angelfish need plenty of vertical space to swim. A tall tank with plants is ideal.",
+                "Step 2: Introduce a Feeding Routine - Feed them at the same time each day to establish a routine.",
+                "Step 3: Use Floating Food - Introduce floating pellets or flakes to engage them during feeding.",
+                "Step 4: Practice Target Training - Use a colored stick to encourage them to come closer for food.",
+                "Step 5: Incorporate Environmental Enrichment - Regularly change the tank layout to stimulate their curiosity.",
+                "Step 6: Observe Their Behavior - Monitor their interactions during training to ensure they are comfortable.",
+                "Step 7: Keep Sessions Short - Limit training to 5-10 minutes to maintain their interest.",
+                "Step 8: Reward Positive Behavior - Always reward them for engaging positively during training.",
+                "Step 9: Ensure Good Water Quality - A healthy environment is crucial for training success.",
+                "Step 10: Be Patient - Each fish learns at its own pace; patience is key."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/UdWjmGp8kUY",
+                description: "Angelfish training video: Tips for training and caring for your Angelfish."
+            }
+        },
+        "Betta Fish": {
+            description: [
+                "Step 1: Create a Comfortable Tank Environment - Ensure the tank is at least 5 gallons, with a heater and filter. Bettas thrive in warm water (78-80°F) and appreciate hiding spots.",
+                "Step 2: Introduce Target Training - Use a stick or your finger as a target. Move it around the tank, encouraging your Betta to follow it. Reward with treats when they do.",
+                "Step 3: Practice Hand Feeding - Once your Betta is comfortable, try hand feeding them their favorite pellets or freeze-dried foods. This builds trust.",
+                "Step 4: Teach Jumping Tricks - Hold a treat above the water's surface. Encourage your Betta to jump for it. Start with small jumps and gradually increase the height.",
+                "Step 5: Establish a Routine - Fish thrive on routine. Feed them at the same time daily and perform training sessions consistently.",
+                "Step 6: Use Color Recognition - Train your Betta to respond to specific colors. Show them a colored object and reward them when they interact with it.",
+                "Step 7: Mirror Training - Introduce a mirror to stimulate their natural aggression. This can help with socialization, but should be done sparingly to avoid stress.",
+                "Step 8: Monitor Behavior - Keep an eye on their reactions during training. Adjust techniques if they show signs of stress or disinterest.",
+                "Step 9: End Sessions Positively - Always conclude training sessions on a positive note with a reward to create a positive association with training.",
+                "Step 10: Be Patient - Each Betta is unique. Some may take longer to learn than others, so patience is key."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/TpzYkHSo9kE",
+                description: "Betta Fish training video: Tips for training your Betta Fish effectively."
+            }
+        },
+        "Corydoras Catfish": {
+            description: [
+                "Step 1: Create a Comfortable Environment - Provide a sandy substrate and hiding spots for them to feel secure.",
+                "Step 2: Introduce Feeding Routine - Feed them at the same time each day to help establish a routine.",
+                "Step 3: Use Sinking Food - Corydoras prefer sinking pellets or wafers; use these for training.",
+                "Step 4: Practice Target Feeding - Use a colored target to train them to come to a specific spot for food.",
+                "Step 5: Encourage Exploration - Introduce new objects into their environment to stimulate curiosity and interaction.",
+                "Step 6: Use Social Interaction - Corydoras are social fish; consider training them in groups to encourage natural behavior.",
+                "Step 7: Monitor Water Quality - Ensure optimal water conditions to keep them healthy and engaged.",
+                "Step 8: Keep Sessions Short - Limit training to 5-10 minutes to maintain their interest.",
+                "Step 9: Use Positive Reinforcement - Reward them with food or attention when they engage positively.",
+                "Step 10: Be Patient - Each fish learns at its own pace; patience is key."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/9JGS1zqV9xE",
+                description: "Corydoras Catfish training video: How to train and care for Corydoras."
+            }
+        },
+        "Goldfish": {
+            description: [
+                "Step 1: Create an Ideal Tank Setup - A larger tank with filtration is essential. Goldfish need ample space and clean water to thrive.",
+                "Step 2: Establish a Feeding Routine - Feed them at the same time each day to build a routine.",
+                "Step 3: Use Colorful Food - Engage them visually with colorful flakes or pellets.",
+                "Step 4: Practice Target Training - Use a colored object as a target, rewarding them when they interact with it.",
+                "Step 5: Incorporate Simple Games - Use floating objects to encourage them to swim through or around obstacles.",
+                "Step 6: Observe Their Behavior - Monitor their responses to training and adjust techniques as needed.",
+                "Step 7: Keep Sessions Short - Limit training to 5-10 minutes to maintain their interest.",
+                "Step 8: End on a Positive Note - Always conclude training sessions with a reward.",
+                "Step 9: Monitor Health Regularly - Healthy fish are more likely to engage in training; ensure water quality is optimal.",
+                "Step 10: Be Patient - Each fish learns at its own pace; patience is crucial."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/b3JFmrlgWAk",
+                description: "Goldfish training video: Tips for training and caring for Goldfish."
+            }
+        },
+        "Guppy": {
+            description: [
+                "Step 1: Create a Well-Planted Tank - Guppies enjoy a tank with plenty of plants and hiding spots.",
+                "Step 2: Introduce a Feeding Routine - Feed them at the same time every day to create a habit.",
+                "Step 3: Use Colorful Food - Brightly colored flakes or pellets can stimulate their appetite.",
+                "Step 4: Practice Target Training - Use a small colored object to encourage them to come to a specific spot for food.",
+                "Step 5: Incorporate Playful Activities - Use floating objects to encourage them to swim and interact.",
+                "Step 6: Monitor Their Behavior - Adjust your training methods based on their reactions.",
+                "Step 7: Keep Sessions Short - Limit training to 5-10 minutes to maintain their interest.",
+                "Step 8: End Sessions Positively - Always conclude on a positive note with a reward.",
+                "Step 9: Ensure Optimal Water Conditions - Healthy fish are more likely to engage; monitor water quality.",
+                "Step 10: Be Patient - Each guppy learns at its own pace; patience is crucial."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/YBdGpEp3O1o",
+                description: "Guppy training video: Techniques for training and caring for your Guppies."
+            }
+        },
+        "Molly Fish": {
+            description: [
+                "Step 1: Create a Comfortable Environment - Provide a well-planted tank with plenty of hiding spots.",
+                "Step 2: Introduce a Feeding Routine - Feed them at the same time daily to build familiarity.",
+                "Step 3: Use Colorful Food - Offer a variety of colorful flakes or pellets to engage them during feeding.",
+                "Step 4: Practice Target Training - Use a colored object as a target, rewarding them when they interact with it.",
+                "Step 5: Incorporate Simple Games - Use floating objects to encourage them to swim and play.",
+                "Step 6: Monitor Their Behavior - Observe their reactions during training and adjust your approach as needed.",
+                "Step 7: Keep Sessions Short - Limit training to 5-10 minutes to keep their interest.",
+                "Step 8: End Sessions Positively - Always conclude training sessions on a positive note with a reward.",
+                "Step 9: Monitor Health Regularly - Healthy fish are more likely to engage; ensure water quality is optimal.",
+                "Step 10: Be Patient - Each fish learns at its own pace; patience is crucial."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/XDSvBUvMuV0",
+                description: "Molly Fish training video: Techniques for training and caring for your Molly Fish."
+            }
+        },
+        "Neon Tetra": {
+            description: [
+                "Step 1: Create a Group Environment - Neon Tetras thrive in schools of 6 or more; provide ample swimming space.",
+                "Step 2: Introduce a Feeding Routine - Feed them at the same time each day to establish a pattern.",
+                "Step 3: Use Small Sinking Pellets - Offer small pellets or flakes that sink to engage them during feeding.",
+                "Step 4: Practice Target Training - Use a small colored object to encourage interaction and reward them.",
+                "Step 5: Incorporate Obstacle Courses - Create small obstacles in the tank to encourage exploration.",
+                "Step 6: Observe Behavior - Monitor their interactions and adjust your techniques based on their comfort level.",
+                "Step 7: Keep Sessions Short - Limit training to 5-10 minutes to maintain their interest.",
+                "Step 8: End on a Positive Note - Always conclude training sessions with a reward.",
+                "Step 9: Maintain Optimal Water Quality - Healthy fish engage better; ensure clean water.",
+                "Step 10: Be Patient - Each fish learns at its own pace; patience is essential."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/MNaT_lqSL94",
+                description: "Neon Tetra training video: How to train and care for your Neon Tetras."
+            }
+        },
+        "Platies": {
+            description: [
+                "Step 1: Set Up a Friendly Tank - Ensure the tank is well-planted with plenty of swimming space.",
+                "Step 2: Establish Feeding Times - Feed them at the same times each day to help them learn your routine.",
+                "Step 3: Use Colorful Food - Introduce colorful flakes or pellets to engage their visual senses during feeding.",
+                "Step 4: Practice Target Training - Use a small colored object as a target, rewarding them when they interact with it.",
+                "Step 5: Incorporate Simple Games - Use floating objects to encourage them to swim through or around obstacles.",
+                "Step 6: Observe Their Behavior - Monitor their responses to training and adjust techniques as needed.",
+                "Step 7: Keep Sessions Short - Limit training to 5-10 minutes to maintain their interest.",
+                "Step 8: End on a Positive Note - Always conclude training sessions with a reward to create positive associations.",
+                "Step 9: Monitor Health Regularly - Healthy fish are more likely to engage in training. Ensure water quality is optimal.",
+                "Step 10: Be Patient and Consistent - Fish learn at their own pace, so consistent training is crucial."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/4xXtG7wNCJg",
+                description: "Platies training video: Techniques for training and caring for your Platies."
+            }
+        },
+        "Zebra Danio": {
+            description: [
+                "Step 1: Create a Spacious Tank - Zebra Danios thrive in groups; ensure your tank has plenty of space for swimming.",
+                "Step 2: Establish a Feeding Routine - Feed them at the same time daily to build a routine.",
+                "Step 3: Use High-Quality Flakes - Offer high-quality flakes or pellets for nutrition.",
+                "Step 4: Practice Target Training - Use a colored object to encourage them to come to a specific spot for food.",
+                "Step 5: Incorporate Fun Activities - Create swimming challenges or obstacle courses to keep them engaged.",
+                "Step 6: Observe Behavior - Monitor their interactions and adjust your training methods accordingly.",
+                "Step 7: Keep Sessions Short - Limit training to 5-10 minutes to maintain their interest.",
+                "Step 8: End on a Positive Note - Always conclude training sessions with a reward.",
+                "Step 9: Ensure Optimal Water Conditions - Healthy fish are more likely to engage; monitor water quality.",
+                "Step 10: Be Patient - Each fish learns at its own pace; patience is crucial."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/Q8RIPUwaj6Y",
+                description: "Zebra Danio training video: Tips for training and caring for your Zebra Danios."
+            }
+        }
+    };
+
+    function updateBreedInfo() {
+        const breedSelector = document.getElementById('breed-selector');
+        const selectedBreed = breedSelector.value;
+        const descriptionSection = document.getElementById('description-section');
+        const trainingStepsList = document.getElementById('training-steps-list');
+        const videoSection = document.getElementById('video-section');
+        const videoEmbed = document.getElementById('video-embed');
+
+        if (selectedBreed) {
+            const breedInfo = fishBreeds[selectedBreed];
+            trainingStepsList.innerHTML = '';
+            breedInfo.description.forEach(step => {
+                const li = document.createElement('li');
+                li.innerHTML = step;
+                trainingStepsList.appendChild(li);
+            });
+
+            videoEmbed.src = breedInfo.video.src;
+            descriptionSection.style.display = 'block';
+            videoSection.style.display = 'block';
+        } else {
+            descriptionSection.style.display = 'none';
+            videoSection.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>

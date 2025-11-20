@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bird Products</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.815);
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        select, button {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        button {
+            background: linear-gradient(135deg, #c79bff, #b48eff);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #b48eff, #c79bff); 
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Find Bird Products</h1>
+        <label for="bird-select">Choose a bird breed:</label>
+        <select id="bird-select">
+            <option value="">Select a breed</option>
+            <option value="Parrot">Parrot</option>
+            <option value="Canary">Canary</option>
+            <option value="Cockatiel">Cockatiel</option>
+            <option value="Macaw">Macaw</option>
+            <option value="Finch">Finch</option>
+            <option value="Lovebird">Lovebird</option>
+            <option value="Budgerigar">Budgerigar</option>
+            <option value="Dove">Dove</option>
+            <option value="Pigeon">Pigeon</option>
+            <option value="Cockatoo">Cockatoo</option>
+        </select>
+        <br>
+        <button onclick="searchBirdProducts()">Search</button>
+    </div>
+
+    <script>
+        function searchBirdProducts() {
+            var bird = document.getElementById("bird-select").value;
+            if (bird) {
+                var searchUrl = `https://www.google.com/search?tbm=shop&q=${bird}+bird+products`;
+                window.open(searchUrl, "_blank");
+            } else {
+                alert("Please select a bird breed.");
+            }
+        }
+    </script>
+
+</body>
+</html>

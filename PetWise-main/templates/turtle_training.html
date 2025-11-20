@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turtle Training Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #4a4a4a;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+            padding: 0 15px 20px;
+        }
+
+        .breed-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px 0;
+            border-radius: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            width: 50%;
+            margin: 15px;
+            border: 1px solid #b48eff;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        .training-steps {
+            margin-top: 30px;
+        }
+
+        .training-steps ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .training-steps li {
+            background: #d7bfff;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-section {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 315px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Turtle Training Guide</h1>
+
+    <div class="breed-selector">
+        <select id="breed-selector" onchange="updateBreedInfo()">
+            <option value="">Select a Turtle Breed</option>
+            <option value="African Sideneck Turtle">African Sideneck Turtle</option>
+            <option value="Box Turtle">Box Turtle</option>
+            <option value="Chinese Softshell Turtle">Chinese Softshell Turtle</option>
+            <option value="Musk Turtle">Musk Turtle</option>
+            <option value="Painted Turtle">Painted Turtle</option>
+            <option value="Red-Eared Slider">Red-Eared Slider</option>
+            <option value="Yellow-Bellied Slider">Yellow-Bellied Slider</option>
+        </select>
+    </div>
+
+    <div id="description-section" class="training-steps" style="display: none;">
+        <h3>Training Steps</h3>
+        <ul id="training-steps-list"></ul>
+    </div>
+
+    <div id="video-section" class="video-section" style="display: none;">
+        <h3>Reference Video</h3>
+        <iframe id="video-embed" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    const turtleBreeds = {
+        "African Sideneck Turtle": {
+            description: [
+                "Step 1: Create a Comfortable Habitat - Ensure proper water conditions and a basking area.",
+                "Step 2: Use Positive Reinforcement - Offer treats when they approach you.",
+                "Step 3: Encourage Swimming - Use floating toys to stimulate their natural behavior.",
+                "Step 4: Handle Gently - Allow them to get used to your presence without stress.",
+                "Step 5: Monitor Health - Regularly check for signs of stress or illness."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/NgFvy0YNOOo",
+                description: "African Sideneck Turtle training video."
+            }
+        },
+        "Box Turtle": {
+            description: [
+                "Step 1: Set Up a Natural Habitat - Use soil and plants for a stimulating environment.",
+                "Step 2: Introduce Gradually - Allow the turtle to explore at its own pace.",
+                "Step 3: Use Treats for Training - Hide food to encourage foraging behaviors.",
+                "Step 4: Handle Regularly - Spend time with them to build trust.",
+                "Step 5: Observe Behavior - Adjust training based on their comfort level."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/QN2PumNWb5o",
+                description: "Box Turtle training video."
+            }
+        },
+        "Chinese Softshell Turtle": {
+            description: [
+                "Step 1: Provide a Spacious Tank - Ensure they have enough room to swim.",
+                "Step 2: Use Positive Reinforcement - Offer food rewards when they perform desired actions.",
+                "Step 3: Encourage Exploration - Use rocks and plants for them to interact with.",
+                "Step 4: Minimize Handling - Limit physical contact to reduce stress.",
+                "Step 5: Regular Health Checks - Monitor for any signs of health issues."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/ComHyZ1GKhQ",
+                description: "Chinese Softshell Turtle training video."
+            }
+        },
+        "Musk Turtle": {
+            description: [
+                "Step 1: Create a Secure Habitat - Ensure they have hiding spots.",
+                "Step 2: Encourage Natural Behavior - Provide substrates for digging.",
+                "Step 3: Use Positive Reinforcement - Reward with treats when they come to you.",
+                "Step 4: Limit Handling - Minimize stress by handling gently and infrequently.",
+                "Step 5: Monitor Behavior - Adjust the environment based on their reactions."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/9GUYriSbGiM",
+                description: "Musk Turtle training video."
+            }
+        },
+        "Painted Turtle": {
+            description: [
+                "Step 1: Provide a Spacious Tank - Ensure a good swimming area.",
+                "Step 2: Use Positive Reinforcement - Offer treats for desired behaviors.",
+                "Step 3: Encourage Basking - Create a basking area to promote sunbathing.",
+                "Step 4: Minimize Stress - Handle them gently and infrequently.",
+                "Step 5: Monitor Health Regularly - Check for signs of illness."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/LM8kPvh6bfs",
+                description: "Painted Turtle training video."
+            }
+        },
+        "Red-Eared Slider": {
+            description: [
+                "Step 1: Create a Large Habitat - Provide enough space for swimming.",
+                "Step 2: Use Positive Reinforcement - Reward them with treats for following commands.",
+                "Step 3: Encourage Basking - Include a dry basking area in their habitat.",
+                "Step 4: Limit Handling - Handle gently to avoid stress.",
+                "Step 5: Regular Health Monitoring - Check for any health issues."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/c5Oupzo4vKQ",
+                description: "Red-Eared Slider training video."
+            }
+        },
+        "Yellow-Bellied Slider": {
+            description: [
+                "Step 1: Provide a Spacious Habitat - Ensure enough room for swimming and basking.",
+                "Step 2: Use Treats for Training - Reward them with food for positive behavior.",
+                "Step 3: Create a Basking Area - Encourage basking for their health.",
+                "Step 4: Minimize Handling - Reduce stress by limiting physical contact.",
+                "Step 5: Regularly Monitor Health - Keep an eye out for any signs of stress or illness."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/HhLCsXEdSTk",
+                description: "Yellow-Bellied Slider training video."
+            }
+        }
+    };
+
+    function updateBreedInfo() {
+        const breedSelector = document.getElementById('breed-selector');
+        const selectedBreed = breedSelector.value;
+        const descriptionSection = document.getElementById('description-section');
+        const trainingStepsList = document.getElementById('training-steps-list');
+        const videoSection = document.getElementById('video-section');
+        const videoEmbed = document.getElementById('video-embed');
+
+        if (selectedBreed) {
+            const breedInfo = turtleBreeds[selectedBreed];
+            trainingStepsList.innerHTML = '';
+            breedInfo.description.forEach(step => {
+                const li = document.createElement('li');
+                li.innerHTML = step;
+                trainingStepsList.appendChild(li);
+            });
+
+            videoEmbed.src = breedInfo.video.src;
+            descriptionSection.style.display = 'block';
+            videoSection.style.display = 'block';
+        } else {
+            descriptionSection.style.display = 'none';
+            videoSection.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>

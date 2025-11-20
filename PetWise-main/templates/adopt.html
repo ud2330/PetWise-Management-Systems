@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Adoption</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Main Title Styling */
+        h1 {
+            color: #4a4a4a;
+            margin-bottom: 20px;
+            font-size: 2.5em; /* Larger title */
+            letter-spacing: 1px; /* Adds spacing between letters */
+        }
+
+        /* Container Styling */
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+            transition: transform 0.3s; /* Smooth hover effect */
+        }
+        .container:hover {
+            transform: translateY(-5px); /* Slight lift on hover */
+        }
+
+        /* Quote Styling */
+        .quote {
+            font-style: italic;
+            color: #888;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            font-size: 1.4em; /* Larger font size */
+            font-weight: 300; /* Lighter font weight */
+        }
+
+        /* Button Group Styling */
+        .button-group {
+            margin: 40px 0; /* More spacing */
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Adds spacing between buttons */
+        }
+
+        /* Button Styling */
+        .button {
+            background-color: #b48af2; /* Violet color */
+            color: white;
+            border: none;
+            padding: 16px 40px; /* Larger button size */
+            border-radius: 8px; /* More rounded corners */
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Button shadow */
+        }
+
+        /* Button Hover Effects */
+        .button:hover {
+            background-color: #b55edb; /* Darker violet on hover */
+            transform: scale(1.05); /* Slight grow on hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+        }
+
+        /* Image Styling */
+        .shelter-image {
+            max-width: 300px; /* Controlled image size */
+            height: auto;
+            margin: 30px auto; /* Centered image with spacing */
+            display: block; /* Ensure image is block-level for centering */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Image shadow */
+            border-radius: 10px; /* Slightly rounded corners */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Pet Adoption</h1>
+    <p class="quote">"Unlock the joy of unconditional companionship."</p>
+    
+    <img src="{{ url_for('static', filename='images/Animal shelter-bro.svg') }}" alt="Adopt a Pet" class="shelter-image" width="300" height="300"/>
+    
+    <div class="button-group">
+        <a href="{{ url_for('seller_details', user_id=user_id) }}">
+            <button class="button">Sell</button>
+        </a>
+        <a href="{{ url_for('adopter_details', user_id=user_id) }}">
+            <button class="button">Adopt</button>
+        </a>
+     </div>   
+</div>
+
+</body>
+</html>

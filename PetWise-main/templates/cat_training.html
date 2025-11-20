@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Training Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #4a4a4a;
+        }
+
+        .breed-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px 0;
+            border-radius: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            width: 50%;
+            margin: 15px;
+            border: 1px solid #b48eff;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        .training-steps {
+            margin-top: 30px;
+        }
+
+        .training-steps ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .training-steps li {
+            background: #d7bfff;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-section {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 315px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Cat Training Guide</h1>
+
+    <div class="breed-selector">
+        <select id="breed-selector" onchange="updateBreedInfo()">
+              <option value="">Select a Cat Breed</option>
+            <option value="Abyssinian">Abyssinian</option>
+            <option value="American Shorthair">American Shorthair</option>
+            <option value="Bengal">Bengal</option>
+            <option value="British Shorthair">British Shorthair</option>
+            <option value="Burmese">Burmese</option>
+            <option value="Himalayan">Himalayan</option>
+            <option value="Indian Billi">Indian Billi</option>
+            <option value="Maine Coon">Maine Coon</option>
+            <option value="Persian">Persian</option>
+            <option value="Ragdoll">Ragdoll</option>
+            <option value="Russian Blue">Russian Blue</option>
+            <option value="Scottish Fold">Scottish Fold</option>
+            <option value="Siamese">Siamese</option>
+            <option value="Sphynx">Sphynx</option>
+            <option value="Turkish Angora">Turkish Angora</option>
+        </select>
+    </div>
+
+    <div id="description-section" class="training-steps" style="display: none;">
+        <h3>Training Steps</h3>
+        <ul id="training-steps-list"></ul>
+    </div>
+
+    <div id="video-section" class="video-section" style="display: none;">
+        <h3>Reference Video</h3>
+        <iframe id="video-embed" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    const catBreeds = {
+        "Siamese": {
+            description: [
+                "Step 1: Use interactive toys to stimulate your Siamese cat’s natural hunting instincts.",
+                "Step 2: Train with positive reinforcement like treats to encourage good behavior.",
+                "Step 3: Siamese cats are vocal, so train them to understand commands and communicate."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/1fWRR2-BuWg",
+                description: "Siamese Cat Training Video: Teaching commands and understanding behavior."
+            }
+        },
+        "Persian": {
+            description: [
+                "Step 1: Use gentle brushing sessions to train your Persian to enjoy grooming.",
+                "Step 2: Provide puzzle toys to keep their mind active.",
+                "Step 3: Train your Persian to respond to their name and come when called."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/ozxwS8Rs0X4",
+                description: "Persian Cat Training Video: Grooming and basic commands."
+            }
+        },
+        "Maine Coon": {
+            description: [
+                "Step 1: Train your Maine Coon to use a scratching post instead of furniture.",
+                "Step 2: Encourage playtime to build strength and coordination.",
+                "Step 3: Use clicker training to teach tricks like ‘sit’ and ‘high five’."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/io-mMSgXVN0",
+                description: "Maine Coon Training Video: Basic tricks and playtime strategies."
+            }
+        },
+        "Ragdoll": {
+            description: [
+                "Step 1: Train your Ragdoll to use the litter box from an early age.",
+                "Step 2: Use calm and gentle commands, as Ragdolls are typically laid-back and affectionate.",
+                "Step 3: Teach basic tricks like ‘sit’ and reward them with treats."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/pkRjZ2xBBkc",
+                description: "Ragdoll Cat Training Video: Litter training and simple commands."
+            }
+        },
+        "Sphynx": {
+            description: [
+                "Step 1: Use interactive play sessions to bond with your Sphynx and burn off their high energy.",
+                "Step 2: Use positive reinforcement techniques for training and behavior shaping.",
+                "Step 3: Sphynx cats love attention, so reward them with affection for good behavior."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/z9VCk60FoXw",
+                description: "Sphynx Cat Training Video: Playtime and positive reinforcement."
+            }
+        },
+        "Bengal": {
+            description: [
+                "Step 1: Use clicker training to stimulate your Bengal's high intelligence.",
+                "Step 2: Provide climbing and exercise opportunities to release their energy.",
+                "Step 3: Train them to understand commands like ‘no’ and ‘come here’ using treats."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/BkPsX4TgJ1g",
+                description: "Bengal Cat Training Video: Command training and physical activities."
+            }
+        },
+        "Russian Blue": {
+            description: [
+                "Step 1: Train your Russian Blue to follow commands using quiet, calm cues.",
+                "Step 2: Encourage mental stimulation with puzzle feeders.",
+                "Step 3: Teach them to be comfortable with grooming and handling."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/OL4U2nNsuHI",
+                description: "Russian Blue Cat Training Video: Grooming and command training."
+            }
+        },
+        "British Shorthair": {
+            description: [
+                "Step 1: Train your British Shorthair to use the litter box from an early age.",
+                "Step 2: Encourage exercise and playtime to prevent laziness.",
+                "Step 3: Use calm and positive reinforcement to shape their behavior."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/KmTDyQ1WuIQ",
+                description: "British Shorthair Training Video: Exercise and litter training."
+            }
+        },
+          "Burmese": {
+        description: [
+            "Step 1: Socialize your Burmese early to make them more people-friendly.",
+            "Step 2: Provide plenty of mental stimulation and interactive toys.",
+            "Step 3: Establish a feeding routine and reward good behavior."
+        ],
+        video: {
+            src: "https://www.youtube.com/embed/YtfB0qCh6Lg",
+            description: "Burmese Training Video: Socialization and playtime."
+        }
+    },
+    "Himalayan": {
+        description: [
+            "Step 1: Start grooming your Himalayan from a young age to keep their coat healthy.",
+            "Step 2: Create a calm environment for training as Himalayans can be sensitive to noise.",
+            "Step 3: Use treats as rewards for good behavior during litter training."
+        ],
+        video: {
+            src: "https://www.youtube.com/embed/TyJts-NwzBc",
+            description: "Himalayan Training Video: Grooming and litter training tips."
+        }
+    },
+    "Indian Billi": {
+        description: [
+            "Step 1: Train your Indian Billi to respond to basic commands using positive reinforcement.",
+            "Step 2: Allow plenty of outdoor time for exercise if safe in your area.",
+            "Step 3: Use interactive toys to keep them mentally and physically engaged."
+        ],
+        video: {
+            src: "https://www.youtube.com/embed/2h9VqeC6n50",
+            description: "Indian Billi Training Video: Outdoor and indoor play techniques."
+        }
+    },
+    "Scottish Fold": {
+        description: [
+            "Step 1: Train your Scottish Fold using gentle commands and positive reinforcement.",
+            "Step 2: Provide climbing spaces and scratching posts to prevent boredom.",
+            "Step 3: Be consistent with feeding and litter training routines."
+        ],
+        video: {
+            src: "https://www.youtube.com/embed/Uu-hRtkaVLc",
+            description: "Scottish Fold Training Video: Climbing and scratching post training."
+        }
+    },
+    "Turkish Angora": {
+        description: [
+            "Step 1: Use toys to keep your Turkish Angora physically active and entertained.",
+            "Step 2: Start litter box training early for better results.",
+            "Step 3: Reinforce positive behavior with treats and gentle words."
+        ],
+        video: {
+            src: "https://www.youtube.com/embed/ZU0gnx3oang",
+            description: "Turkish Angora Training Video: Litter training and active play."
+        }
+    },
+    "Abyssinian": {
+        description: [
+            "Step 1: Engage your Abyssinian in puzzle toys and games to stimulate their curiosity.",
+            "Step 2: Offer regular training sessions to teach commands and tricks.",
+            "Step 3: Use clicker training combined with treats for behavior reinforcement."
+        ],
+        video: {
+            src: "https://www.youtube.com/embed/6VcxocvzIH0",
+            description: "Abyssinian Training Video: Puzzle games and clicker training."
+        }
+    },
+    "American Shorthair": {
+        description: [
+            "Step 1: Socialize your American Shorthair with family members and other pets early.",
+            "Step 2: Provide a variety of toys to keep them active and mentally stimulated.",
+            "Step 3: Reinforce positive litter and behavior habits with praise and rewards."
+        ],
+        video: {
+            src: "https://www.youtube.com/embed/Rp64SubbH9E",
+            description: "American Shorthair Training Video: Socialization and litter training."
+        }
+    }
+
+        
+    };
+
+    function updateBreedInfo() {
+        const breed = document.getElementById('breed-selector').value;
+        const descriptionSection = document.getElementById('description-section');
+        const videoSection = document.getElementById('video-section');
+        const stepsList = document.getElementById('training-steps-list');
+        const breedInfo = catBreeds[breed];
+
+        // Clear previous content
+        stepsList.innerHTML = '';
+        document.getElementById('video-embed').src = '';
+
+        // Hide both sections initially
+        descriptionSection.style.display = 'none';
+        videoSection.style.display = 'none';
+
+        if (breedInfo) {
+            // Populate description
+            breedInfo.description.forEach(step => {
+                const listItem = document.createElement('li');
+                listItem.textContent = step;
+                stepsList.appendChild(listItem);
+            });
+
+            // Show description section
+            descriptionSection.style.display = 'block';
+
+            // Set and show video
+            document.getElementById('video-embed').src = breedInfo.video.src;
+            videoSection.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>

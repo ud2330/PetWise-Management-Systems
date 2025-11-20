@@ -1,0 +1,644 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Training Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #4a4a4a;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+            padding: 0 15px 20px;
+        }
+
+        .breed-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px 0;
+            border-radius: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            width: 50%;
+            margin: 15px;
+            border: 1px solid #b48eff;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        /* Training Steps Section */
+        .training-steps {
+            margin-top: 30px;
+        }
+
+        .training-steps ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .training-steps li {
+            background: #d7bfff;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Video Section */
+        .video-section {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 315px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Training Guide</h1>
+
+    <!-- Breed Selector Section -->
+    <div class="breed-selector">
+        <select id="breed-selector" onchange="updateBreedInfo()">
+            <option value="">Select a Dog Breed</option>
+            <option value="Basset Hound">Basset Hound</option>
+            <option value="Beagle">Beagle</option>
+            <option value="Bully Kutta">Bully Kutta</option>
+            <option value="Boxer">Boxer</option>
+            <option value="Boston Terrier">Boston Terrier</option>
+            <option value="Bulldog">Bulldog</option>
+            <option value="Cocker Spaniel">Cocker Spaniel</option>
+            <option value="Chippiparai">Chippiparai</option>
+            <option value="Dachshund">Dachshund</option>
+            <option value="Doberman Pinscher">Doberman Pinscher</option>
+            <option value="French Bulldog">French Bulldog</option>
+            <option value="German Shepherd">German Shepherd</option>
+            <option value="Great Dane">Great Dane</option>
+            <option value="Golden Retriever">Golden Retriever</option>
+            <option value="Indies">Indies</option>
+            <option value="Kanni">Kanni</option>
+            <option value="Labrador Retriever">Labrador Retriever</option>
+            <option value="Pomeranian">Pomeranian</option>
+            <option value="Poodle">Poodle</option>
+            <option value="Pug">Pug</option>
+            <option value="Rajapalayam">Rajapalayam</option>
+            <option value="Rottweiler">Rottweiler</option>
+            <option value="Shetland Sheepdog">Shetland Sheepdog</option>
+            <option value="Shih Tzu">Shih Tzu</option>
+            <option value="Siberian Husky">Siberian Husky</option>
+        </select>
+    </div>
+
+    <!-- Description Section -->
+    <div id="description-section" class="training-steps" style="display: none;">
+        <h3>Steps</h3>
+        <ul id="training-steps-list"></ul>
+    </div>
+
+    <!-- Video Section -->
+    <div id="video-section" class="video-section" style="display: none;">
+        <h3>Reference Video</h3>
+        <iframe id="video-embed" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    const dogBreeds = {
+        "Basset Hound": {
+            description: [
+                
+                "Step 1: Start with basic commands like 'sit' and 'stay'. Keep sessions short and engaging.",
+                "Step 2: Use their natural scenting abilities for scent games.",
+                "Step 3: Socialize your Basset Hound with other dogs and people early on.",
+                "Step 4: Incorporate play into training to keep them motivated.",
+                "Step 5: Use positive reinforcement consistently.",
+                "Step 6: Be patient as Basset Hounds can be stubborn.",
+                "Step 7: Gradually increase the complexity of commands.",
+                "Step 8: Always end sessions on a positive note.",
+                "Step 9: Practice leash walking in a calm environment.",
+                "Step 10: Regularly assess their understanding and adjust training methods as needed."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/MOl1K8a18So",
+                description: "Basset Hound training video: Training your Basset Hound with patience and positive reinforcement."
+            }
+        },
+        "Beagle": {
+            description: [
+                "Step 1: Use reward-based training methods, as Beagles respond well to positive reinforcement.",
+                "Step 2: Train them to recall, as they can be easily distracted by scents.",
+                "Step 3: Incorporate fun scent games into training.",
+                "Step 4: Ensure they get plenty of exercise to reduce excess energy.",
+                "Step 5: Socialize them with other dogs and people from a young age.",
+                "Step 6: Use short, frequent training sessions to maintain their focus.",
+                "Step 7: Be consistent with commands and rewards.",
+                "Step 8: Incorporate playtime to keep training enjoyable.",
+                "Step 9: Practice walking on a leash regularly.",
+                "Step 10: Assess their progress frequently and adjust your approach as necessary."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/U3bQMslL3Fo",
+                description: "Beagle training video: Basic obedience and scent tracking exercises for Beagles."
+            }
+        },
+        "Bully Kutta": {
+            description: [
+                "Step 1: Begin with basic obedience commands like 'sit' and 'come'.",
+                "Step 2: Use positive reinforcement to encourage good behavior.",
+                "Step 3: Socialize your Bully Kutta early with various environments.",
+                "Step 4: Gradually introduce distractions during training sessions.",
+                "Step 5: Ensure consistent commands to avoid confusion.",
+                "Step 6: Incorporate physical activity into training.",
+                "Step 7: Be patient; this breed may take time to learn.",
+                "Step 8: Use a firm but gentle approach to maintain respect.",
+                "Step 9: Regularly practice commands in different settings.",
+                "Step 10: Celebrate small victories to keep them motivated."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/pzDNIQ8D3WY",
+                description: "Bully Kutta training video: Basic obedience and behavior management."
+            }
+        },
+        "Boxer": {
+            description: [
+                "Step 1: Start training with basic commands and hand signals.",
+                "Step 2: Use toys to motivate your Boxer during training.",
+                "Step 3: Ensure socialization with other dogs and people.",
+                "Step 4: Incorporate physical exercise to burn off excess energy.",
+                "Step 5: Keep training sessions short and fun.",
+                "Step 6: Be consistent with commands and rewards.",
+                "Step 7: Practice recall in a secure area.",
+                "Step 8: Gradually introduce new commands as they master the basics.",
+                "Step 9: Be patient; Boxers can be goofy and may get distracted.",
+                "Step 10: Celebrate successes with praise and treats."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/wFkDj3-Elso",
+                description: "Boxer training video: Engaging your Boxer with fun commands and activities."
+            }
+        },
+        "Boston Terrier": {
+            description: [
+                "Step 1: Start with basic commands like 'sit' and 'stay'.",
+                "Step 2: Use positive reinforcement to encourage good behavior.",
+                "Step 3: Socialize your Boston Terrier from a young age.",
+                "Step 4: Keep training sessions short to match their attention span.",
+                "Step 5: Use interactive toys during training.",
+                "Step 6: Regularly practice commands in different environments.",
+                "Step 7: Be patient; they can sometimes be stubborn.",
+                "Step 8: Gradually increase the difficulty of commands.",
+                "Step 9: Use a firm but gentle tone to maintain their attention.",
+                "Step 10: End sessions on a positive note with praise."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/_R9H0_9i3RQ",
+                description: "Boston Terrier training video: Fun tips and tricks for training your Boston."
+            }
+        },
+        "Bulldog": {
+            description: [
+                "Step 1: Begin with simple commands such as 'sit' and 'down'.",
+                "Step 2: Use treats to reward positive behavior.",
+                "Step 3: Socialize your Bulldog with various people and pets.",
+                "Step 4: Keep training sessions brief to maintain their interest.",
+                "Step 5: Incorporate gentle play into training.",
+                "Step 6: Be consistent with commands and cues.",
+                "Step 7: Gradually introduce more challenging commands.",
+                "Step 8: Use a calm and assertive tone.",
+                "Step 9: Practice leash walking regularly.",
+                "Step 10: Celebrate successes with praise and affection."
+            ],
+            
+            video: {
+                src: "https://www.youtube.com/embed/Xshy6JrqOww",
+                
+                description: "Bulldog training video: Techniques for successful Bulldog training."
+            }
+        },
+        "Cocker Spaniel": {
+            description: [
+                "Step 1: Start with basic commands and use treats for rewards.",
+                "Step 2: Socialize your Cocker Spaniel early with various people.",
+                "Step 3: Use positive reinforcement consistently.",
+                "Step 4: Incorporate playtime to keep sessions fun.",
+                "Step 5: Gradually increase the complexity of commands.",
+                "Step 6: Be patient as Cocker Spaniels can be sensitive.",
+                "Step 7: Practice commands in different environments.",
+                "Step 8: Ensure daily exercise to reduce excess energy.",
+                "Step 9: Use gentle corrections instead of harsh discipline.",
+                "Step 10: End sessions on a positive note."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/Qy6NfM6gI0w",
+                description: "Cocker Spaniel training video: Understanding and training your Cocker."
+            }
+        },
+        "Chippiparai": {
+            description: [
+                "Step 1: Start with basic obedience commands.",
+                "Step 2: Use positive reinforcement techniques for training.",
+                "Step 3: Socialize your Chippiparai with different environments.",
+                "Step 4: Incorporate playtime to keep training engaging.",
+                "Step 5: Practice recall regularly in a secure area.",
+                "Step 6: Be consistent with commands and signals.",
+                "Step 7: Gradually introduce distractions during training.",
+                "Step 8: Use short, frequent training sessions.",
+                "Step 9: Regularly assess their understanding and adjust methods.",
+                "Step 10: Celebrate their achievements to boost confidence."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/_u7Kgd6iVzk",
+                description: "Chippiparai training video: Tips for training your Chippiparai effectively."
+            }
+        },
+        "Dachshund": {
+            description: [
+                "Step 1: Begin with simple commands and use treats as rewards.",
+                "Step 2: Socialize your Dachshund early with various people.",
+                "Step 3: Use positive reinforcement consistently.",
+                "Step 4: Keep training sessions short and enjoyable.",
+                "Step 5: Gradually increase the difficulty of commands.",
+                "Step 6: Practice leash walking regularly.",
+                "Step 7: Be patient; Dachshunds can be stubborn.",
+                "Step 8: Incorporate playtime into training sessions.",
+                "Step 9: Use a calm and assertive tone.",
+                "Step 10: Celebrate small victories to encourage progress."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/rQXZ7L3Ojxc",
+                description: "Dachshund training video: Fun ways to train your Dachshund."
+            }
+        },
+        "Doberman Pinscher": {
+            description: [
+                "Step 1: Start with basic commands like 'sit' and 'down'.",
+                "Step 2: Use high-value treats to motivate your Doberman.",
+                "Step 3: Socialize your Doberman with various environments.",
+                "Step 4: Keep training sessions focused and brief.",
+                "Step 5: Gradually increase the complexity of commands.",
+                "Step 6: Use firm, consistent commands.",
+                "Step 7: Incorporate physical exercise into training.",
+                "Step 8: Practice recall in a secure area.",
+                "Step 9: Always end sessions on a positive note.",
+                "Step 10: Regularly assess their understanding and adjust training methods."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/yG73EZAhxDs",
+                description: "Doberman training video: Building a strong bond with your Doberman."
+            }
+        },
+        "French Bulldog": {
+            description: [
+                "Step 1: Start with basic commands and positive reinforcement.",
+                "Step 2: Keep training sessions short and engaging.",
+                "Step 3: Socialize your French Bulldog early with different environments.",
+                "Step 4: Use toys and treats to motivate them.",
+                "Step 5: Practice recall in a secure area.",
+                "Step 6: Be consistent with commands and signals.",
+                "Step 7: Gradually introduce new commands.",
+                "Step 8: Use a calm and encouraging tone.",
+                "Step 9: Regularly practice leash walking.",
+                "Step 10: Celebrate their successes with praise."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/UHbjdj9kBTM",
+                description: "French Bulldog training video: Effective training techniques for Frenchies."
+            }
+        },
+        "German Shepherd": {
+            description: [
+                "Step 1: Start with basic commands using treats as rewards.",
+                "Step 2: Socialize your German Shepherd with different environments.",
+                "Step 3: Use positive reinforcement techniques consistently.",
+                "Step 4: Keep training sessions short and engaging.",
+                "Step 5: Gradually increase the complexity of commands.",
+                "Step 6: Incorporate physical exercise into training.",
+                "Step 7: Be consistent with commands and cues.",
+                "Step 8: Practice recall and leash walking regularly.",
+                "Step 9: Celebrate their achievements to boost confidence.",
+                "Step 10: Regularly assess their understanding and adjust methods."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/W2pkvy5t3Bo",
+                description: "German Shepherd training video: Mastering obedience training for your Shepherd."
+            }
+        },
+        "Great Dane": {
+            description: [
+                "Step 1: Start with basic commands like 'sit' and 'stay'.",
+                "Step 2: Use positive reinforcement and high-value treats.",
+                "Step 3: Socialize your Great Dane early with various environments.",
+                "Step 4: Keep training sessions short due to their size.",
+                "Step 5: Gradually increase the complexity of commands.",
+                "Step 6: Use a firm but gentle approach.",
+                "Step 7: Practice recall in a secure area.",
+                "Step 8: Incorporate playtime into training.",
+                "Step 9: Regularly practice leash walking.",
+                "Step 10: Celebrate their progress to boost confidence."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/VkwDlWDJkkY",
+                description: "Great Dane training video: Effective training tips for large breeds."
+            }
+        },
+        "Golden Retriever": {
+            description: [
+                "Step 1: Start with basic commands and use positive reinforcement.",
+                "Step 2: Socialize your Golden Retriever with different people and pets.",
+                "Step 3: Keep training sessions short and fun.",
+                "Step 4: Gradually increase the complexity of commands.",
+                "Step 5: Incorporate playtime and physical exercise.",
+                "Step 6: Be consistent with commands and rewards.",
+                "Step 7: Practice recall in a secure area.",
+                "Step 8: Use high-value treats for motivation.",
+                "Step 9: Celebrate their achievements to boost confidence.",
+                "Step 10: Regularly assess their understanding and adjust methods."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/8_SpZUTuRgE",
+                description: "Golden Retriever training video: Effective training techniques for Golden Retrievers."
+            }
+        },
+        "Indies": {
+    description: [
+        "Step 1: Create a cozy training space where your Indies feel secure.",
+        "Step 2: Engage their curiosity with exploration and discovery.",
+        "Step 3: Socialize your Indies with various people and environments.",
+        "Step 4: Use fun games like fetch to teach commands.",
+        "Step 5: Establish a regular training routine.",
+        "Step 6: Start with basics and gradually introduce new commands.",
+        "Step 7: Use interactive toys for problem-solving.",
+        "Step 8: Celebrate achievements with praise and treats.",
+        "Step 9: Train in different locations to adapt to distractions.",
+        "Step 10: Encourage decision-making during training."
+    ],
+    video: {
+        src: "https://www.youtube.com/embed/LKyULHKzIG0",
+        description: "Indies training video: Creative tips for training and understanding your Indies."
+    }
+},
+
+        "Kanni": {
+    description: [
+        "Step 1: Create a welcoming training area for your Kanni.",
+        "Step 2: Use their energy to incorporate physical activities.",
+        "Step 3: Focus on early socialization with people and pets.",
+        "Step 4: Teach commands through engaging games.",
+        "Step 5: Be consistent with commands.",
+        "Step 6: Start simple and increase complexity gradually.",
+        "Step 7: Use puzzles to stimulate their mind.",
+        "Step 8: Reward successes with treats and praise.",
+        "Step 9: Train in varied environments.",
+        "Step 10: Encourage exploration and choice."
+    ],
+    video: {
+        src: "https://www.youtube.com/embed/07Kz8jDO4Jg",
+        description: "Kanni training video: Effective tips for training and caring for your Kanni."
+    }
+},
+    
+        "Labrador Retriever": {
+            description: [
+                "Step 1: Start with basic commands and positive reinforcement.",
+                "Step 2: Socialize your Labrador with various people and pets.",
+                "Step 3: Keep training sessions short and engaging.",
+                "Step 4: Gradually introduce new commands and tricks.",
+                "Step 5: Incorporate physical exercise into training.",
+                "Step 6: Use high-value treats to motivate your Labrador.",
+                "Step 7: Be consistent with commands and signals.",
+                "Step 8: Practice recall and leash walking regularly.",
+                "Step 9: Celebrate their achievements to boost confidence.",
+                "Step 10: Regularly assess their understanding and adjust methods."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/qOoCIlYxLb4",
+                description: "Labrador Retriever training video: Tips for successful Labrador training."
+            }
+        },
+        "Pomeranian": {
+        "description": [
+            "Step 1: Begin with basic obedience commands and positive reinforcement.",
+            "Step 2: Socialize your Pomeranian with new people, pets, and environments.",
+            "Step 3: Keep sessions short and playful, as Pomeranians have short attention spans.",
+            "Step 4: Introduce new commands gradually and with patience.",
+            "Step 5: Include physical activities like short walks or playtime.",
+            "Step 6: Use small, high-value treats for motivation.",
+            "Step 7: Maintain consistency in your training approach.",
+            "Step 8: Practice recall, leash walking, and good manners.",
+            "Step 9: Reward good behavior to build confidence.",
+            "Step 10: Evaluate progress and adjust techniques as needed."
+        ],
+        "video": {
+            "src": "https://www.youtube.com/embed/ySqVFVU4-is",
+            "description": "Pomeranian training video: Essential tips for training your Pomeranian."
+        }
+        },
+
+
+        "Poodle": {
+            description: [
+                "Step 1: Start with basic commands and positive reinforcement.",
+                "Step 2: Socialize your Poodle with various people and pets.",
+                "Step 3: Keep training sessions short and fun.",
+                "Step 4: Gradually increase the complexity of commands.",
+                "Step 5: Incorporate physical exercise into training.",
+                "Step 6: Use high-value treats for motivation.",
+                "Step 7: Be consistent with commands and cues.",
+                "Step 8: Practice recall and leash walking regularly.",
+                "Step 9: Celebrate their achievements to boost confidence.",
+                "Step 10: Regularly assess their understanding and adjust methods."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/fI2K6a_yONI",
+                description: "Poodle training video: Effective training techniques for Poodles."
+            }
+        },
+        "Pug": {
+        "description": [
+            "Step 1: Begin with simple commands and use positive reinforcement to reward good behavior.",
+            "Step 2: Socialize your Pug early to help reduce stubborn tendencies.",
+            "Step 3: Keep sessions short due to their short attention span.",
+            "Step 4: Gradually introduce new tricks, starting with sit and stay.",
+            "Step 5: Include gentle exercises to prevent obesity.",
+            "Step 6: Use treats, but watch calorie intake.",
+            "Step 7: Be patient, as Pugs can be strong-willed.",
+            "Step 8: Focus on consistent leash walking practice.",
+            "Step 9: Provide lots of praise for motivation.",
+            "Step 10: Monitor progress and adjust training techniques."
+        ],
+        "video": {
+            "src": "https://www.youtube.com/embed/Rik2kZuKQKI",
+            "description": "Pug training video: Effective methods for training a Pug."
+        }
+    },
+    "Rajapalayam": {
+        "description": [
+            "Step 1: Establish a strong bond with your Rajapalayam through trust and patience.",
+            "Step 2: Socialize your Rajapalayam early to prevent aggression towards strangers.",
+            "Step 3: Start with basic commands like sit, stay, and come using positive reinforcement.",
+            "Step 4: Introduce short training sessions to keep them focused.",
+            "Step 5: Ensure they get ample physical exercise, as they are energetic dogs.",
+            "Step 6: Use treats sparingly and reward good behavior.",
+            "Step 7: Be consistent in your commands and signals.",
+            "Step 8: Practice leash training regularly.",
+            "Step 9: Offer praise and affection for motivation.",
+            "Step 10: Evaluate their progress and modify techniques if needed."
+        ],
+        "video": {
+            "src": "https://www.youtube.com/embed/tgyBMGHS61k",
+            "description": "Rajapalayam training video: Tips for effectively training this unique breed."
+        }
+    },
+        "Rottweiler": {
+            description: [
+                "Step 1: Start with basic commands like 'sit' and 'down'.",
+                "Step 2: Use positive reinforcement techniques.",
+                "Step 3: Socialize your Rottweiler early with various environments.",
+                "Step 4: Keep training sessions brief and focused.",
+                "Step 5: Gradually increase the complexity of commands.",
+                "Step 6: Incorporate physical activity into training.",
+                "Step 7: Use a calm and assertive tone.",
+                "Step 8: Practice leash walking regularly.",
+                "Step 9: Celebrate their successes to boost confidence.",
+                "Step 10: Regularly assess their understanding and adjust training methods."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/tj6nFdWsU9k",
+                description: "Rottweiler training video: Building a strong bond through training."
+            }
+        },
+        "Shetland Sheepdog": {
+        "description": [
+            "Step 1: Begin with basic obedience training, focusing on commands like sit, stay, and come.",
+            "Step 2: Socialize your Sheltie with different environments and people early on.",
+            "Step 3: Use short, engaging training sessions to keep them mentally stimulated.",
+            "Step 4: Introduce advanced commands as they are highly intelligent and eager to learn.",
+            "Step 5: Include physical activities such as agility training to channel their energy.",
+            "Step 6: Use praise and treats for positive reinforcement.",
+            "Step 7: Be consistent with training routines.",
+            "Step 8: Practice recall and off-leash walking.",
+            "Step 9: Build confidence through positive reinforcement.",
+            "Step 10: Regularly assess their progress and adapt training techniques."
+        ],
+        "video": {
+            "src": "https://www.youtube.com/embed/gluzz7abXPY",
+            "description": "Shetland Sheepdog training video: Key tips for training a Sheltie."
+        }
+    },
+        "Shih Tzu": {
+            description: [
+                "Step 1: Start with basic commands using treats as rewards.",
+                "Step 2: Socialize your Shih Tzu early with different environments.",
+                "Step 3: Keep training sessions short and enjoyable.",
+                "Step 4: Use positive reinforcement consistently.",
+                "Step 5: Gradually increase the complexity of commands.",
+                "Step 6: Be patient; Shih Tzus can be independent.",
+                "Step 7: Incorporate playtime into training sessions.",
+                "Step 8: Use a calm and gentle tone.",
+                "Step 9: Celebrate small victories to encourage progress.",
+                "Step 10: Regularly assess their understanding and adjust methods."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/FaTzWwa5-HE",
+                description: "Shih Tzu training video: Fun training tips for your Shih Tzu."
+            }
+        },
+        "Siberian Husky": {
+            description: [
+                "Step 1: Start with basic commands and use high-value treats.",
+                "Step 2: Socialize your Siberian Husky early with different people.",
+                "Step 3: Keep training sessions fun and engaging.",
+                "Step 4: Gradually introduce new commands and tricks.",
+                "Step 5: Incorporate physical exercise into training.",
+                "Step 6: Be patient; Huskies can be stubborn.",
+                "Step 7: Practice recall in a secure area.",
+                "Step 8: Use a firm but gentle tone.",
+                "Step 9: Celebrate their achievements to boost confidence.",
+                "Step 10: Regularly assess their understanding and adjust methods."
+            ],
+            video: {
+                src: "https://www.youtube.com/embed/W3n0Gt-dvhs",
+                description: "Siberian Husky training video: Effective training techniques for Huskies."
+            }
+        }
+    }
+
+
+    function updateBreedInfo() {
+        const breed = document.getElementById('breed-selector').value;
+        const descriptionSection = document.getElementById('description-section');
+        const videoSection = document.getElementById('video-section');
+        const stepsList = document.getElementById('training-steps-list');
+        const breedInfo = dogBreeds[breed];
+
+        // Clear previous content
+        stepsList.innerHTML = '';
+        document.getElementById('video-embed').src = '';
+
+        // Hide both sections initially
+        descriptionSection.style.display = 'none';
+        videoSection.style.display = 'none';
+
+        if (breedInfo) {
+            // Populate description
+            breedInfo.description.forEach(step => {
+                const listItem = document.createElement('li');
+                listItem.textContent = step;
+                stepsList.appendChild(listItem);
+            });
+
+            // Show description section
+            descriptionSection.style.display = 'block';
+
+            // Show video option for the breed
+            const videoEmbed = document.getElementById('video-embed');
+            videoEmbed.src = breedInfo.video.src;
+            document.getElementById('video-section').style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>

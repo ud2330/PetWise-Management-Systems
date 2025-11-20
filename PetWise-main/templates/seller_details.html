@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #4a4a4a;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin: 15px 0;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #131212;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], select {
+            width: 95%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            color: #333;
+        }
+        input::placeholder, select {
+            color: rgb(91, 91, 91);
+        }
+        button {
+            background-color: #b48af2;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background-color: #b55edb;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Seller Details</h1>
+    
+    <form action="{{ url_for('seller_details', user_id=user_id) }}" method="POST">
+        <div class="form-group">
+            <label for="seller-name">Name:</label>
+            <input type="text" id="seller-name" name="seller-name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="seller-phone">Phone Number:</label>
+            <input type="tel" id="seller-phone" name="seller-phone" placeholder="Enter your phone number" required>
+        </div>
+
+        <div class="form-group">
+            <label for="seller-email">Email:</label>
+            <input type="email" id="seller-email" name="seller-email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="seller-address">Address:</label>
+            <input type="text" id="seller-address" name="seller-address" placeholder="Enter your address" required>
+        </div>
+
+        <h1>Pet Details</h1>
+
+        <div class="form-group">
+            <label for="pet-type">Pet Type:</label>
+            <select id="pet-type" name="pet-type" required onchange="populateBreeds()">
+                <option value="">Select Pet Type</option>
+                <option value="dog">Dog</option>
+                <option value="cat">Cat</option>
+                <option value="bird">Bird</option>
+                <option value="fish">Fish</option>
+                <option value="rabbit">Rabbit</option>
+                <option value="hamster">Hamster</option>
+                <option value="horse">Horse</option>
+                <option value="pig">Pig</option>
+                <option value="turtle">Turtle</option>
+                <option value="squirrel">Squirrel</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="pet-gender">Pet Gender:</label>
+            <select id="pet-gender" name="pet-gender" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="pet-age">Pet Age:</label>
+            <input type="text" id="pet-age" name="pet-age" placeholder="Age in years" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pet-breed">Pet Breed:</label>
+            <select id="pet-breed" name="pet-breed" required>
+                <option value="">Select a breed</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="pet-health">Pet Health Status:</label>
+            <input type="text" id="pet-health" name="pet-health" placeholder="Enter health status" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pet-color">Pet Color:</label>
+            <input type="text" id="pet-color" name="pet-color" placeholder="Enter color" required>
+        </div>
+
+        <button type="submit">Submit Details</button>
+    </form>
+</div>
+
+<script>
+    const breeds = {
+        dog: [
+            "Basset Hound", "Beagle", "Bully Kutta", "Boxer", "Boston Terrier", "Bulldog", 
+            "Cocker Spaniel", "Chippiparai", "Dachshund", "Doberman Pinscher", "French Bulldog", 
+            "German Shepherd", "Great Dane", "Golden Retriever", "Indies", "Kanni", 
+            "Labrador Retriever", "Pomeranian", "Poodle", "Pug", "Rajapalayam", "Rottweiler", 
+            "Shetland Sheepdog", "Shih Tzu", "Siberian Husky"
+        ],
+        cat: [
+            "Abyssinian", "American Shorthair", "Bengal", "British Shorthair", "Burmese", 
+            "Himalayan", "Indian Billi", "Maine Coon", "Persian", "Ragdoll", "Russian Blue", 
+            "Scottish Fold", "Siamese", "Sphynx", "Turkish Angora"
+        ],
+        fish: [
+            "Angelfish", "Betta Fish", "Corydoras Catfish", "Goldfish", "Guppy", "Molly Fish", 
+            "Neon Tetra", "Platies", "Zebra Danio"
+        ],
+        rabbit: [
+            "Holland Lop", "Mini Rex", "Netherland Dwarf", "English Angora", "Miniature Lion Lop"
+        ],
+        hamster: [
+            "Chinese Hamster", "Dwarf Campbell's Hamster", "Roborovski Hamster", 
+            "Syrian Hamster (Golden Hamster)", "Winter White Dwarf Hamster"
+        ],
+        horse: [
+            "Arabian Horse", "Appaloosa", "Kachchh Horse", "Marwari Horse", "Thoroughbred"
+        ],
+        pig: [
+            "Juliana Pig", "Kune Kune Pig", "Miniature Pig", "Potbellied Pig"
+        ],
+        turtle: [
+            "African Sideneck Turtle", "Box Turtle", "Chinese Softshell Turtle", "Musk Turtle", 
+            "Painted Turtle", "Red-Eared Slider", "Yellow-Bellied Slider"
+        ],
+        bird: [
+            "African Grey Parrot", "Amazon Parrot", "Budgerigar (Budgie)", "Canary", "Cockatiel", 
+            "Duck", "Finch", "Lovebird", "Macaw", "Parakeet"
+        ],
+        squirrel: [
+            "Eastern Gray Squirrel", "Fox Squirrel", "Flying Squirrel", "Indian Palm Squirrel", 
+            "Red Squirrel"
+        ]
+    };
+
+    function populateBreeds() {
+        const petType = document.getElementById("pet-type").value;
+        const breedSelect = document.getElementById("pet-breed");
+        
+        // Clear current options
+        breedSelect.innerHTML = '<option value="">Select a breed</option>';
+        
+        if (breeds[petType]) {
+            breeds[petType].forEach(breed => {
+                const option = document.createElement("option");
+                option.value = breed;
+                option.textContent = breed;
+                breedSelect.appendChild(option);
+            });
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breed Information</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 900px; /* Adjusted for button layout */
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        /* Pet Type Selector using CSS Grid */
+        .pet-type-selector {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* Five buttons per row */
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .pet-type-selector a {
+            text-decoration: none;
+        }
+
+        /* Button Styles */
+        .button {
+            background-color: #d7bfff; /* Bright purple background */
+            color: white;
+            border: none; /* No border for a clean look */
+            padding: 10px; /* Consistent padding for button height */
+            border-radius: 20px; /* Slightly rounded corners */
+            cursor: pointer;
+            font-size: 16px; /* Consistent font size */
+            font-family: 'Poppins', sans-serif; /* Modern font */
+            font-weight: 600; /* Semi-bold for emphasis */
+            letter-spacing: 0.5px; /* Slightly spaced-out letters */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+            width: 80%; /* Make buttons full width within grid cell */
+            height: 60px; /* Set a uniform height */
+        }
+
+        .button:hover {
+            background-color: #c0a0f0; /* Darker purple on hover */
+            transform: translateY(-4px); /* Lift button slightly on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+        }
+
+        .button:active {
+            transform: translateY(0); /* Reset lift on click */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+        }
+
+        /* Active button styling */
+        .button.active {
+            background-color: #a380e0; /* Even darker purple for active state */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .pet-type-selector {
+                grid-template-columns: repeat(4, 1fr); /* Four buttons per row on medium screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pet-type-selector {
+                grid-template-columns: repeat(3, 1fr); /* Three buttons per row on smaller screens */
+            }
+
+            .container {
+                max-width: 600px;
+            }
+
+            .button {
+                font-size: 14px; /* Adjust font size for smaller screens */
+                padding: 8px; /* Consistent padding */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pet-type-selector {
+                grid-template-columns: repeat(2, 1fr); /* Two buttons per row on very small screens */
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            .button {
+                font-size: 12px; /* Adjust font size for very small screens */
+                padding: 6px; /* Consistent padding */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Select a Pet to Know about it</h1>
+
+     <!-- Pet Type Selector using CSS Grid with Five Buttons per Row -->
+     <div class="pet-type-selector">
+        <!-- Row 1 -->
+        <a href="{{ url_for('bird_info') }}">
+            <button class="button" id="bird-button">Bird</button>
+        </a>
+        <a href="{{ url_for('cat_info') }}">
+            <button class="button" id="cat-button">Cat</button>
+        </a>
+        <a href="{{ url_for('dog_info') }}">
+            <button class="button" id="dog-button">Dog</button>
+        </a>
+        <a href="{{ url_for('fish_info') }}">
+            <button class="button" id="fish-button">Fish</button>
+        </a>
+        <a href="{{ url_for('hamster_info') }}">
+            <button class="button" id="hamster-button">Hamster</button>
+        </a>
+        <!-- Row 2 -->
+        <a href="{{ url_for('horse_info') }}">
+            <button class="button" id="horse-button">Horse</button>
+        </a>
+        <a href="{{ url_for('pig_info') }}">
+            <button class="button" id="pig-button">Pig</button>
+        </a>
+        <a href="{{ url_for('rabbit_info') }}">
+            <button class="button" id="rabbit-button">Rabbit</button>
+        </a>
+        <a href="{{ url_for('squirrel_info') }}">
+            <button class="button" id="squirrel-button">Squirrel</button>
+        </a>
+        <a href="{{ url_for('turtle_info') }}">
+            <button class="button" id="turtle-button">Turtle</button>
+        </a>
+    </div>
+</div>
+
+<script>
+    function redirectToPage(petType) {
+        // Ensure the correct pet type is highlighted
+        const items = document.querySelectorAll('.pet-type-selector div');
+        items.forEach(item => {
+            item.classList.remove('active');
+        });
+
+        const activeItem = document.getElementById(petType);
+        if (activeItem) {
+            activeItem.classList.add('active');
+        }
+
+        switch(petType) {
+        case 'dog':
+            window.location.href = 'dog_info.html';
+            break;
+        case 'cat':
+            window.location.href = 'cat_info.html';
+            break;
+        case 'bird':
+            window.location.href = 'bird_info.html';
+            break;
+        case 'fish':
+            window.location.href = 'fish_info.html';
+            break;
+        case 'rabbit':
+            window.location.href = 'rabbit_info.html';
+            break;
+        case 'hamster':
+            window.location.href = 'hamster_info.html';
+            break;
+        case 'horse':
+            window.location.href = 'horse_info.html';
+            break;
+        case 'pig':
+            window.location.href = 'pig_info.html';
+            break;
+        case 'turtle':
+            window.location.href = 'turtle_info.html';
+            break;
+        case 'squirrel':
+            window.location.href = 'squirrel_info.html';
+            break;
+        default:
+            console.error('Invalid pet type:', petType);
+    }
+    }
+</script>
+
+</body>
+</html>

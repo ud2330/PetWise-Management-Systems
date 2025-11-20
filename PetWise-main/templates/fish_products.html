@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Products</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e2f3fc, #f3d5f6);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.815);
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        select, button {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        button {
+            background: linear-gradient(135deg, #c79bff, #b48eff);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #b48eff, #c79bff); 
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Find Fish Products</h1>
+    <label for="fish-select">Choose a fish breed:</label>
+    <select id="fish-select">
+        <option value="">Select a breed</option>
+        <option value="Angelfish">Angelfish</option>
+        <option value="Betta Fish">Betta Fish</option>
+        <option value="Corydoras Catfish">Corydoras Catfish</option>
+        <option value="Guppy Fish">Guppy</option>
+        <option value="Molly Fish">Molly Fish</option>
+        <option value="Neon Tetra Fish">Neon Tetra</option>
+    </select>
+    <br>
+    <button onclick="searchFishProducts()">Search</button>
+</div>
+
+<script>
+    function searchFishProducts() {
+        var fishBreed = document.getElementById("fish-select").value;
+        if (fishBreed) {
+            var searchUrl = `https://www.google.com/search?tbm=shop&q=${fishBreed}+fish+products`;
+            window.open(searchUrl, "_blank");
+        } else {
+            alert("Please select a fish breed.");
+        }
+    }
+</script>
+
+</body>
+</html>
