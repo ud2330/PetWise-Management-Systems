@@ -1,59 +1,182 @@
-# PetWise
 
-**PetWise** is an intelligent pet recommendation system that helps users find pets, products, and services tailored to their lifestyle, preferences, and environment.
+---
+
+# PetWise — Pet Management & Recommendation System
+
+PetWise is a Flask-based platform that manages users, pets, adopters, sellers, and feedback using MongoDB.
+It also provides product recommendations, pet training guides, breed information, and first-aid resources.
+PetWise integrates external APIs to suggest pet products based on breed and user behavior.
+
+---
 
 ## Features
 
-- Pet recommendations based on user preferences
-- Lifestyle and environment-based matching
-- Suggests products and services for pet care
-- Responsive interface with clean design
+* User Authentication (Signup, Login, Sessions)
+* Manage Pet Listings (Dogs, Cats, Birds, Rabbits, etc.)
+* Adopter & Seller Registration
+* Store & Retrieve Data in MongoDB
+* Product Search (Flipkart API)
+* Pet Training Guides
+* Breed Information Library
+* First Aid & Health Guides
+* Feedback System with Rating and Features
+* Personalized Recommendation Logic (Rule-based + User Preferences)
+
+---
 
 ## Tech Stack
 
-- **Frontend:** HTML, CSS, Bootstrap
-- **Backend:** Python (Flask)
-- **Templates:** HTML in `templates/` folder
-- **Static Assets:** Images, CSS, JS in `static/`
-- **Dependency Management:** `requirements.txt`
+* Python
+* Flask
+* MongoDB
+* HTML, CSS, JavaScript
+* RapidAPI (Flipkart Product Search)
+
+---
 
 ## Project Structure
-  ```bash
-  PetWise/
-  ├── static/                  # Static files (CSS, images, JS)
-  │   └── images/              # Images used in the project
-  ├── templates/               # HTML templates
-  ├── app.py                   # Main Flask application
-  ├── package.json             # Node.js package info (if applicable)
-  ├── package-lock.json        # Node.js lock file
-  ├── requirements.txt         # Python dependencies
-  └── README.md                # Project documentation
-  ```
 
- ## Setup Instructions
+```
+app.py
+templates/
+static/
+uploads/
+README.md
+```
 
-- Clone the repository:
-  ```bash
-  git clone https://github.com/laradharshini/PetWise.git
-  cd PetWise
-- Create and activate a virtual environment:
+---
 
-  ```bash
-  python -m venv env
-  env\Scripts\activate      # For Windows
-  # OR
-  source env/bin/activate   # For macOS/Linux
+## Setup
 
-- Install dependencies:
+### 1. Clone the repository
 
-  ```bash
-  pip install -r requirements.txt
+```
+git clone https://github.com/yourusername/petwise.git
+cd petwise
+```
 
-- Run the Flask app:
+### 2. Create virtual environment
 
-  ```bash
-  python app.py
+```
+python -m venv venv
+```
 
-- Open your browser and go to:
-  ```bash
-  http://localhost:5000/
+### 3. Activate environment
+
+Windows PowerShell:
+
+```
+venv\Scripts\Activate
+```
+
+Windows CMD:
+
+```
+venv\Scripts\activate.bat
+```
+
+Linux/Mac:
+
+```
+source venv/bin/activate
+```
+
+### 4. Install dependencies
+
+```
+pip install -r requirements.txt
+```
+
+### 5. Start MongoDB
+
+Make sure MongoDB is running locally:
+
+```
+mongod
+```
+
+### 6. Run the Flask application
+
+```
+python app.py
+```
+
+Visit the application at:
+
+```
+http://127.0.0.1:5000
+```
+
+---
+
+## Core Modules
+
+### User Management
+
+* Login, logout, signup
+* Session-based dashboard
+* Store user details in MongoDB
+
+### Pet Management
+
+* Add pet details (name, breed, age, temperament, health, etc.)
+* Link pets to registered users
+* Store and retrieve pet profiles
+
+### Adoption Module
+
+* Adopter registration form
+* Seller registration form
+* View available sellers
+* Adopt pet workflow
+
+### Recommendation Engine
+
+PetWise uses:
+
+* Content-based filtering (breed → product suggestions)
+* Rule-based logic (age, lifestyle → pet type suggestions)
+* API-based product recommendations
+
+### Product Search (API)
+
+Fetches real-time pet products based on breed.
+
+### Feedback System
+
+Users can submit:
+
+* Ratings
+* Features
+* Detailed feedback
+
+All feedback is stored and displayed from MongoDB.
+
+### Information Modules
+
+* Breed Information
+* Training Guides (all animals)
+* First Aid
+* Pet Health
+* Product Categories
+
+---
+
+## API Configuration
+
+Set your RapidAPI keys inside the code:
+
+```
+'x-rapidapi-key': 'YOUR_API_KEY'
+'x-rapidapi-host': 'real-time-flipkart-api.p.rapidapi.com'
+```
+
+---
+
+## Notes
+
+* Ensure MongoDB is installed and running locally before launching the app.
+* All templates must be placed in the `templates/` folder.
+* Static files (CSS, JS, Images) must be stored inside `static/`.
+
+---
